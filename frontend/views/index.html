@@ -1,172 +1,158 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ShelfLife - Pantry & Emergency Tracker</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <!-- Login Modal -->
-    <div id="loginModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <div class="modal-header">
-          <i class="fas fa-box fa-3x"></i>
-          <h2>Welcome to ShelfLife</h2>
-          <p>Track your pantry. Stay prepared. Reduce waste.</p>
-        </div>
-        <div class="modal-body">
-          <button id="googleLoginBtn" class="google-btn">
-            <i class="fab fa-google"></i> LOG IN WITH GOOGLE
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShelfLife - Pantry & Emergency Tracker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div class="modal-header">
+        <i class="fas fa-box fa-3x"></i>
+        <h2>Welcome to ShelfLife</h2>
+        <p>Track your pantry. Stay prepared. Reduce waste.</p>
+      </div>
+      <div class="modal-body">
+        <button id="googleLoginBtn" class="google-btn">
+          <i class="fab fa-google"></i> LOG IN WITH GOOGLE
+        </button>
+        <div class="divider">or</div>
+        <form id="emailLoginForm">
+          <input type="email" placeholder="Email" id="loginEmail" required />
+          <input type="password" placeholder="Password" id="loginPassword" required />
+          <button type="submit" class="email-login-btn">
+            Sign In with Email
           </button>
-          <div class="divider">or</div>
-          <form id="emailLoginForm">
-            <input type="email" placeholder="Email" id="loginEmail" required />
-            <input
-              type="password"
-              placeholder="Password"
-              id="loginPassword"
-              required />
-            <button type="submit" class="email-login-btn">
-              Sign In with Email
-            </button>
-          </form>
-          <p class="signup-link">
-            Don't have an account? <a href="#" id="showSignup">Sign up</a>
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Signup Modal -->
-    <div id="signupModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <div class="modal-header">
-          <i class="fas fa-user-plus fa-3x"></i>
-          <h2>Create Account</h2>
-          <p>Start tracking your pantry today</p>
-        </div>
-        <div class="modal-body">
-          <button id="googleSignupBtn" class="google-btn">
-            <i class="fab fa-google"></i> SIGN UP WITH GOOGLE
-          </button>
-          <div class="divider">or</div>
-          <form id="emailSignupForm">
-            <input
-              type="text"
-              placeholder="Full Name"
-              id="signupName"
-              required />
-            <input type="email" placeholder="Email" id="signupEmail" required />
-            <input
-              type="password"
-              placeholder="Password"
-              id="signupPassword"
-              required />
-            <input
-              type="tel"
-              placeholder="Phone (optional for SMS alerts)"
-              id="signupPhone" />
-            <button type="submit" class="email-login-btn">
-              Create Account
-            </button>
-          </form>
-          <p class="signup-link">
-            Already have an account? <a href="#" id="showLogin">Sign in</a>
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="navbar">
-      <div class="nav-container">
-        <div class="nav-logo">
-          <i class="fas fa-box"></i>
-          <span>ShelfLife</span>
-        </div>
-        <div class="menu-toggle" id="menuToggle">
-          <i class="fas fa-bars"></i>
-        </div>
-        <ul class="nav-menu" id="navMenu">
-          <li><a href="#" class="nav-link active">Dashboard</a></li>
-          <li><a href="#" class="nav-link">Pantry</a></li>
-          <li><a href="#" class="nav-link">Recipes</a></li>
-          <li><a href="#" class="nav-link">Emergency Kit</a></li>
-        </ul>
-        <div class="nav-icons">
-          <i class="fas fa-search"></i>
-          <i class="fas fa-bell"></i>
-          <i class="fas fa-user" id="userIcon"></i>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-content">
-        <h1>Never Waste Food Again</h1>
-        <p>
-          Track expiration dates, get recipe suggestions, and maintain your
-          emergency kit — all in one place.
+        </form>
+        <p class="signup-link">
+          Don't have an account? <a href="#" id="showSignup">Sign up</a>
         </p>
-        <button class="btn-primary" id="ctaButton">Get Started</button>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <!-- Features Section -->
-    <section class="features">
-      <div class="container">
-        <h2>How ShelfLife Helps You</h2>
-        <div class="features-grid">
-          <div class="feature-card">
-            <i class="fas fa-calendar-alt fa-3x"></i>
-            <h3>Expiration Alerts</h3>
-            <p>Get notified before your food expires — via email or SMS.</p>
-          </div>
-          <div class="feature-card">
-            <i class="fas fa-utensils fa-3x"></i>
-            <h3>Recipe Suggestions</h3>
-            <p>Find recipes using ingredients that are about to expire.</p>
-          </div>
-          <div class="feature-card">
-            <i class="fas fa-first-aid fa-3x"></i>
-            <h3>Emergency Kit</h3>
-            <p>Track your preparedness supplies and replacement dates.</p>
-          </div>
-          <div class="feature-card">
-            <i class="fas fa-file-pdf fa-3x"></i>
-            <h3>Printable Checklists</h3>
-            <p>Generate PDF checklists of your emergency kit inventory.</p>
-          </div>
+  <!-- Signup Modal -->
+  <div id="signupModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div class="modal-header">
+        <i class="fas fa-user-plus fa-3x"></i>
+        <h2>Create Account</h2>
+        <p>Start tracking your pantry today</p>
+      </div>
+      <div class="modal-body">
+        <button id="googleSignupBtn" class="google-btn">
+          <i class="fab fa-google"></i> SIGN UP WITH GOOGLE
+        </button>
+        <div class="divider">or</div>
+        <form id="emailSignupForm">
+          <input type="text" placeholder="Full Name" id="signupName" required />
+          <input type="email" placeholder="Email" id="signupEmail" required />
+          <input type="password" placeholder="Password" id="signupPassword" required />
+          <input type="tel" placeholder="Phone (optional for SMS alerts)" id="signupPhone" />
+          <button type="submit" class="email-login-btn">
+            Create Account
+          </button>
+        </form>
+        <p class="signup-link">
+          Already have an account? <a href="#" id="showLogin">Sign in</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <i class="fas fa-box"></i>
+        <span>ShelfLife</span>
+      </div>
+      <div class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#" class="nav-link active">Dashboard</a></li>
+        <li><a href="#" class="nav-link">Pantry</a></li>
+        <li><a href="#" class="nav-link">Recipes</a></li>
+        <li><a href="#" class="nav-link">Emergency Kit</a></li>
+      </ul>
+      <div class="nav-icons">
+        <i class="fas fa-search"></i>
+        <i class="fas fa-bell"></i>
+        <i class="fas fa-user" id="userIcon"></i>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Never Waste Food Again</h1>
+      <p>
+        Track expiration dates, get recipe suggestions, and maintain your
+        emergency kit — all in one place.
+      </p>
+      <button class="btn-primary" id="ctaButton">Get Started</button>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="container">
+      <h2>How ShelfLife Helps You</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fas fa-calendar-alt fa-3x"></i>
+          <h3>Expiration Alerts</h3>
+          <p>Get notified before your food expires — via email or SMS.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-utensils fa-3x"></i>
+          <h3>Recipe Suggestions</h3>
+          <p>Find recipes using ingredients that are about to expire.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-first-aid fa-3x"></i>
+          <h3>Emergency Kit</h3>
+          <p>Track your preparedness supplies and replacement dates.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-file-pdf fa-3x"></i>
+          <h3>Printable Checklists</h3>
+          <p>Generate PDF checklists of your emergency kit inventory.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-content">
-          <i class="fas fa-box fa-2x"></i>
-          <h3>ShelfLife</h3>
-          <p>Track your pantry. Stay prepared. Reduce waste.</p>
-          <div class="social-links">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <p>&copy; 2026 ShelfLife. All rights reserved.</p>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <i class="fas fa-box fa-2x"></i>
+        <h3>ShelfLife</h3>
+        <p>Track your pantry. Stay prepared. Reduce waste.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
-    </footer>
+      <div class="footer-bottom">
+        <p>&copy; 2026 ShelfLife. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 
-    <script src="js/script.js"></script>
-  </body>
+  <script src="js/script.js"></script>
+</body>
+
 </html>
