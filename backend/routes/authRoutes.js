@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
+//Import User model
 const User = require('../models/User');
 const { OAuth2Client } = require('google-auth-library');
 
@@ -15,24 +16,28 @@ const generateToken = (id) => {
 // ============================================
 // EMAIL/PASSWORD AUTHENTICATION 
 // ============================================
-
+// Create user in the database after registration
 router.post('/register', async (req, res) => {
     const { name, email, password } = req.body;
     try {
+        //Check if user already exists
         const userExists = await User.findOne({ email });
-
         if (userExists) return res.status(400).json({ message: 'User already exists' });
 
+        //Create new user in database
         const user = await User.create({ name, email, password });
 
         res.status(201).json({ _id: user._id, name: user.name, email: user.email, token: generateToken(user.id) });
     } catch (error) { res.status(500).json({ message: 'error.message' }); }
 });
 
+//Find user in database and compare passwords
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
+        //Query database to find user with the matching email
         const user = await User.findOne({ email });
+        //Compare the entered password with the hashed password
         if (user && (await user.matchPassword(password))) {
             res.json({ _id: user._id, name: user.name, email: user.email, token: generateToken(user.id) });
         } else {

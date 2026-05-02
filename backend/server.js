@@ -3,6 +3,7 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
+//Imports the database connection from config/db.js.
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 
