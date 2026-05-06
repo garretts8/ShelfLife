@@ -6,6 +6,7 @@ const cors = require('cors');
 //Imports the database connection from config/db.js.
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
+const pantryRoutes = require('./routes/pantryRoutes');
 
 // ============================================
 // CONFIGURATION
@@ -42,7 +43,7 @@ app.use(express.json());
 // ROUTES
 // ============================================
 app.use('/api/auth', authRoutes);
-
+app.use('/api/pantry', pantryRoutes);
 // ============================================
 // ERROR HANDLING
 // ============================================

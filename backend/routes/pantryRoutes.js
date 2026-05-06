@@ -1,0 +1,177 @@
+const express = require('express');
+const router = express.Router();
+const PantryItem = require('../models/PantryItem');
+const { protect } = require('../middleware/authMiddleware');
+
+// ============================================
+// All routes require authentication
+// ============================================
+router.use(protect);
+
+// ============================================
+// CREATE - Add new pantry item
+// POST /api/pantry
+// ============================================
+router.post('/', async (req, res) => {
+    try {
+        const { name, quantity, unit, category, expirationDate, notes } = req.body;
+
+        //Validate required fields
+        if (!name || !category || !expirationDate) {
+            return res.status(400).json({
+                message: 'Please required fields: name, category, and expiration date are required.'
+            });
+        }
+
+        const pantryItem = await PantryItem.create({
+            user: req.user.id,
+            name,
+            quantity: quantity || 1,
+            unit: unit || '',
+            category,
+            expirationDate: new Date(expirationDate),
+            notes: notes || ''
+        });
+
+        res.status(201).json(pantryItem);
+    } catch (error) {
+        console.error('Create pantry item error: ', error);
+        res.status(500).json({ message: error.message });
+    }
+});
+// ============================================
+// READ - Get all pantry items for logged-in user
+// GET /api/pantry
+// ============================================
+router.get('/', async (req, res) => {
+    try {
+        const items = await PantryItem.find({ user: req.user.id })
+            .sort({ expirationDate: 1 });
+        res.json(items);
+    } catch (error) {
+        console.error('Get pantry items error: ', error);
+        res.status(500).json({ message: error.message });
+    }
+});
+// ============================================
+// READ - Get expiring soon items (next 7 days)
+// GET /api/pantry/expiring
+// ============================================
+router.get('/expiring-soon', async (req, res) => {
+    try {
+        const today = new Date();
+        const nextWeek = new Date();
+        nextWeek.setDate(today.getDate() + 7);
+
+        const expiringItems = await PantryItem.find({
+            user: req.user.id,
+            expirationDate: {
+                $gte: today,
+                $lte: nextWeek
+            }
+        }).sort({ expirationDate: 1 });
+
+        res.json(expiringItems);
+    } catch (error) {
+        console.error('Get expiring items error: ', error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// ============================================
+// READ - Get single pantry item by ID
+// GET /api/pantry/:id
+// ============================================
+router.get('/:id', async (req, res) => {
+    try {
+        const item = await PantryItem.findById(req.params.id);
+
+        //Check if item exists
+        if (!item) {
+            return res.status(404).json({ message: 'Item not found' });
+        }
+
+        //Check if the logged-in user is the owner of the item
+        if (item.user.toString() !== req.user.id) {
+            return res.status(403).json({ message: 'User not authorized to access this item.' })
+        }
+
+        res.json(item);
+    } catch (error) {
+        console.error('Get single item error: ', error);
+
+        if (error.kind === 'ObjectId') {
+            return res.status(404).json({ message: 'Invalid item ID' });
+        }
+
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// UPDATE - Update pantry item
+// PUT /api/pantry/:id
+// ============================================
+
+router.put('/:id', async (req, res) => {
+    try {
+        const item = await PantryItem.findById(req.params.id);
+
+        if (!item) {
+            return res.status(404).json({ message: 'Pantry item not found' });
+        }
+
+        if (item.user.toString() !== req.user.id) {
+            return res.status(403).json({ message: 'User not authorized to update this item.' })
+        }
+
+        //Update fields
+        const {
+            name,
+            quantity,
+            unit,
+            category,
+            expirationDate,
+            notes
+        } = req.body;
+
+        item.name = name || item.name;
+        item.quantity = quantity !== undefined ? quantity : item.quantity;
+        item.unit = unit !== undefined ? unit : item.unit
+        item.category = category || item.category;
+        item.expirationDate = expirationDate ? new Date(expirationDate) : item.expirationDate;
+        item.notes = notes !== undefined ? notes : item.notes;
+        item.updatedAt = Date.now();
+
+        const updatedItem = await item.save();
+        res.json(updatedItem);
+    } catch (error) {
+        console.error('Error updating pantry item: ', error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// DELETE - Delete pantry item
+// DELETE /api/pantry/:id
+// ============================================
+router.delete('/:id', async (req, res) => {
+    try {
+        const item = await PantryItem.findById(req.params.id);
+
+        if (!item) {
+            return res.status(404).json({ message: 'Pantry item not found' });
+        }
+
+        if (item.user.toString() !== req.user.id) {
+            return res.status(403).json({ message: 'User not authorized to delete this item.' })
+        }
+
+        await item.deleteOne();
+        res.json({ message: 'Pantry item removed from pantry', id: req.params.id });
+
+    } catch (error) {
+        console.error('Error deleting pantry item: ', error);
+        res.status(500).json({ message: 'Failed to delete pantry item' });
+    }
+});
+
+module.exports = router;

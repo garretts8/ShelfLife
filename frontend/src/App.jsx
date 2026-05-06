@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import GoogleLogin from './components/GoogleLogin';
+import PantryManager from './components/PantryManager';
 import './App.css';
 
 // Protected Route component - redirects to login if not authenticated
@@ -46,14 +47,7 @@ const Dashboard = () => {
         </div>
       </header>
       <main className="dashboard-main">
-        <div className="dashboard-card">
-          <h2>📦 Pantry Summary</h2>
-          <p>Your food inventory tracking will appear here</p>
-        </div>
-        <div className="dashboard-card">
-          <h2>⚠️ Expiring Soon</h2>
-          <p>Items expiring in the next 7 days will show here</p>
-        </div>
+        <PantryManager />
         <div className="dashboard-card">
           <h2>🚨 Emergency Kit</h2>
           <p>Your emergency supplies status will appear here</p>
