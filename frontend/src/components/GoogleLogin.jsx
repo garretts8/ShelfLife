@@ -1,3 +1,5 @@
+//Provides UI button for Google Sign-In and handles authentication flow.
+
 import { GoogleLogin as StandardGoogleLogin } from '@react-oauth/google';
 import api from '../api';
 import { useAuth } from '../context/AuthContext';

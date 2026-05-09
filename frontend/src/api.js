@@ -1,3 +1,7 @@
+//Connects Frontend to Backend.
+//Configured HTTP client for API calls.
+//Axios is a promise-based HTTP client for the browser and node.js.
+
 import axios from 'axios';
 
 const api = axios.create({
@@ -5,7 +9,7 @@ const api = axios.create({
     withCredentials: true,
 });
 
-//Automatically attach JWT token to every request if it exists in localStorage
+//Interceptor:Automatically attach JWT token to every request if it exists in localStorage
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
     if (token) {

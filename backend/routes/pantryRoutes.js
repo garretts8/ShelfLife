@@ -1,3 +1,5 @@
+//Full CRUD (Create, Read, Update, Delete) for pantry items
+
 const express = require('express');
 const router = express.Router();
 const PantryItem = require('../models/PantryItem');

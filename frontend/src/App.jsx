@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
+//  import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import GoogleLogin from './components/GoogleLogin';
@@ -56,7 +57,7 @@ const Dashboard = () => {
     </div>
   );
 };
-
+//AppContent function - handles routing
 function AppContent() {
   return (
     <Router>
@@ -73,6 +74,7 @@ function AppContent() {
   );
 }
 
+//App function - handles Google OAuth provider and authentication provider  
 function App() {
   const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 

@@ -1,10 +1,16 @@
+//Handles user login, logout, and manages global authentication state using React Context.
+//Provides user data and authentication status to other components via context.
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import api from '../api';
 
+//createContext - creates a context object that can be used to share data between components.
 const AuthContext = createContext();
 
+//useAuth hook - used by components to access authentication context
 export const useAuth = () => useContext(AuthContext);
 
+//AuthProvider component - wraps the application with authentication context provider
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);

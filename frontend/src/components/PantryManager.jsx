@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import pantryService from '../services/pantryService';
 import './PantryManager.css';
-
+//Handles CRUD operations for pantry items.
 const PantryManager = () => {
+    //All items in pantry
     const [items, setItems] = useState([]);
+    //Items expiring soon - within 7 days
     const [expiringItems, setExpiringItems] = useState([]);
+    //Loading state
     const [loading, setLoading] = useState(true);
+    //Error state
     const [error, setError] = useState('');
+    //Add/edit form state
     const [showForm, setShowForm] = useState(false);
+    //Editing item state
     const [editingItem, setEditingItem] = useState(null);
+    //Add/edit form data state
     const [formData, setFormData] = useState({
         name: '',
         quantity: 1,
@@ -18,11 +25,12 @@ const PantryManager = () => {
         notes: ''
     });
 
-    // Load items on component mount
+    //Load items on component mount
     useEffect(() => {
         loadItems();
     }, []);
 
+    //Load items from API - ALL items and items expiring soon.
     const loadItems = async () => {
         try {
             setLoading(true);
@@ -41,6 +49,7 @@ const PantryManager = () => {
         }
     };
 
+    //Submit add/edit form
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -57,6 +66,7 @@ const PantryManager = () => {
         }
     };
 
+    //Delete item - confirm before deleting
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this item?')) {
             try {
@@ -69,6 +79,7 @@ const PantryManager = () => {
         }
     };
 
+    //Edit item - populate form with item data
     const handleEdit = (item) => {
         setEditingItem(item);
         setFormData({
@@ -82,6 +93,7 @@ const PantryManager = () => {
         setShowForm(true);
     };
 
+    //Reset form - clear form and close it.
     const resetForm = () => {
         setEditingItem(null);
         setShowForm(false);
@@ -95,6 +107,7 @@ const PantryManager = () => {
         });
     };
 
+    //Get expiration status - color coded based on days until expiration.
     const getExpirationStatus = (date) => {
         const today = new Date();
         const expDate = new Date(date);
@@ -139,8 +152,10 @@ const PantryManager = () => {
             {/* Add/Edit Form */}
             {showForm && (
                 <form onSubmit={handleSubmit} className="pantry-form">
+                    {/*Add/Edit Item Form*/}
                     <h3>{editingItem ? 'Edit Item' : 'Add New Item'}</h3>
 
+                    {/*Item Name input*/}
                     <div className="form-group">
                         <label>Item Name *</label>
                         <input
@@ -150,7 +165,7 @@ const PantryManager = () => {
                             required
                         />
                     </div>
-
+                    {/*Quantity input*/}
                     <div className="form-row">
                         <div className="form-group">
                             <label>Quantity</label>
@@ -161,6 +176,7 @@ const PantryManager = () => {
                                 min="0"
                             />
                         </div>
+                        {/* Unit dropdown*/}
                         <div className="form-group">
                             <label>Unit</label>
                             <select value={formData.unit} onChange={(e) => setFormData({ ...formData, unit: e.target.value })}>
@@ -174,7 +190,7 @@ const PantryManager = () => {
                             </select>
                         </div>
                     </div>
-
+                    {/* Category dropdown*/}
                     <div className="form-row">
                         <div className="form-group">
                             <label>Category *</label>
@@ -190,6 +206,7 @@ const PantryManager = () => {
                                 <option value="other">Other</option>
                             </select>
                         </div>
+                        {/*Expiration Date input*/}
                         <div className="form-group">
                             <label>Expiration Date *</label>
                             <input
@@ -200,7 +217,7 @@ const PantryManager = () => {
                             />
                         </div>
                     </div>
-
+                    {/*Notes input*/}
                     <div className="form-group">
                         <label>Notes</label>
                         <textarea
@@ -209,7 +226,7 @@ const PantryManager = () => {
                             rows="2"
                         />
                     </div>
-
+                    {/*Add/Edit/Cancel buttons*/}
                     <div className="form-actions">
                         <button type="submit" className="btn-submit">
                             {editingItem ? 'Update' : 'Add'} Item
@@ -242,6 +259,7 @@ const PantryManager = () => {
                                     <p>Expires: {new Date(item.expirationDate).toLocaleDateString()}</p>
                                     {item.notes && <p className="item-notes">📝 {item.notes}</p>}
                                 </div>
+                                {/*Edit and Delete buttons*/}
                                 <div className="item-actions">
                                     <button onClick={() => handleEdit(item)} className="btn-edit">Edit</button>
                                     <button onClick={() => handleDelete(item._id)} className="btn-delete">Delete</button>
