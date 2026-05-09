@@ -4,6 +4,17 @@ const PantryItem = require('../models/PantryItem');
 const { protect } = require('../middleware/authMiddleware');
 
 // ============================================
+// Helper function to fix timezone offset issue
+// ============================================
+const parseLocalDate = (dateString) => {
+    if (!dateString) return null;
+    // Create date and set to noon UTC to avoid day shift
+    const date = new Date(dateString);
+    date.setUTCHours(12, 0, 0, 0);
+    return date;
+};
+
+// ============================================
 // All routes require authentication
 // ============================================
 router.use(protect);
@@ -29,7 +40,7 @@ router.post('/', async (req, res) => {
             quantity: quantity || 1,
             unit: unit || '',
             category,
-            expirationDate: new Date(expirationDate),
+            expirationDate: parseLocalDate(expirationDate),
             notes: notes || ''
         });
 
@@ -60,8 +71,11 @@ router.get('/', async (req, res) => {
 router.get('/expiring-soon', async (req, res) => {
     try {
         const today = new Date();
-        const nextWeek = new Date();
+        today.setUTCHours(0, 0, 0, 0); // Start of day UTC
+
+        const nextWeek = new Date(today);
         nextWeek.setDate(today.getDate() + 7);
+        nextWeek.setUTCHours(23, 59, 59, 999); // End of day UTC
 
         const expiringItems = await PantryItem.find({
             user: req.user.id,
@@ -138,7 +152,7 @@ router.put('/:id', async (req, res) => {
         item.quantity = quantity !== undefined ? quantity : item.quantity;
         item.unit = unit !== undefined ? unit : item.unit
         item.category = category || item.category;
-        item.expirationDate = expirationDate ? new Date(expirationDate) : item.expirationDate;
+        item.expirationDate = expirationDate ? parseLocalDate(expirationDate) : item.expirationDate;
         item.notes = notes !== undefined ? notes : item.notes;
         item.updatedAt = Date.now();
 

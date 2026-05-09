@@ -1,17 +1,20 @@
 //Loads environment variables from .env file into process.env
 require('dotenv').config();
-
+//Web Framework for Node.js, used to build the server.
 const express = require('express');
+//CORS - Allows React frontend to communicate with this backend
 const cors = require('cors');
 //Imports the database connection from config/db.js.
 const connectDB = require('./config/db');
+//Imports the authentication routes from authRoutes.js
 const authRoutes = require('./routes/authRoutes');
+//Imports the pantry routes from pantryRoutes.js
 const pantryRoutes = require('./routes/pantryRoutes');
 
 // ============================================
 // CONFIGURATION
 // ============================================
-// Backend port - uses .env PORT or defaults to 5000 for connection
+// Backend (Server) PORT or defaults to 5000 for connection
 const PORT = process.env.PORT || 5000;
 
 // Frontend URL - uses .env FRONTEND_URL or defaults to localhost:5173 for connection
@@ -42,7 +45,9 @@ app.use(express.json());
 // ============================================
 // ROUTES
 // ============================================
+//Used for the authentication and user management functionality
 app.use('/api/auth', authRoutes);
+//Used for the pantry functionality(Pantry endpoints)
 app.use('/api/pantry', pantryRoutes);
 // ============================================
 // ERROR HANDLING

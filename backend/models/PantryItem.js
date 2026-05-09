@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+//Defines how pantry data is structured and stored in the database
 const PantryItemSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,

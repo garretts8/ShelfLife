@@ -1,6 +1,10 @@
+//Protects the routes that require authentication
+// Ensures that only authenticated users can access certain endpoints
+
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
+//Middleware that protects routes that require authentication
 const protect = async (req, res, next) => {
     let token;
 

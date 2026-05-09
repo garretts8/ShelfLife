@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
+//Defines how user data is structured and stored in the database
 const UserSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
@@ -12,7 +13,7 @@ const UserSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
-// Only hash password if it exists and is modified
+// Hash password before saving to the database. Only hash if password exists and is modified
 UserSchema.pre('save', async function (next) {
     if (!this.password || !this.isModified('password')) {
         return next();

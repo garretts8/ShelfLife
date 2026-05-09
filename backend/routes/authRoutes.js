@@ -1,3 +1,6 @@
+//Handles all authentication routes and requests. 
+// Handles all registration, login, and Google OAuth related requests
+
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
