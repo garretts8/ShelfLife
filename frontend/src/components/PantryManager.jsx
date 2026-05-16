@@ -1,3 +1,4 @@
+//This is the pantry manager component.
 import React, { useState, useEffect } from 'react';
 import pantryService from '../services/pantryService';
 import './PantryManager.css';

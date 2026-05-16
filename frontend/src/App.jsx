@@ -1,5 +1,5 @@
-
-//  import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+//This is the root component of the React application.
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import GoogleLogin from './components/GoogleLogin';

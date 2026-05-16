@@ -10,6 +10,10 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 //Imports the pantry routes from pantryRoutes.js
 const pantryRoutes = require('./routes/pantryRoutes');
+//Imports the notification routes from notificationRoutes.js
+const notificationRoutes = require('./routes/notificationRoutes');
+//Imports the cron job functionality from cronService.js
+const { initCronJobs } = require('./services/cronService');
 
 // ============================================
 // CONFIGURATION
@@ -26,6 +30,9 @@ const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 //connect to MongoDB Atlas database using the MONGO_URI from .env.
 //Imports the database connection from config/db.js.
 connectDB();
+
+//Initialize cron jobs for scheduled tasks
+initCronJobs();
 
 // ============================================
 // EXPRESS APP INITIALIZATION
@@ -49,6 +56,9 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 //Used for the pantry functionality(Pantry endpoints)
 app.use('/api/pantry', pantryRoutes);
+//Used for the notification functionality
+app.use('/api/notifications', notificationRoutes);
+
 // ============================================
 // ERROR HANDLING
 // ============================================

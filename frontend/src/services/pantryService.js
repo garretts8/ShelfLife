@@ -1,5 +1,5 @@
 //Handles CRUD operations for pantry items.
-
+//Uses api.js to make HTTP requests to the backend API.
 import api from '../api';
 
 const pantryService = {
