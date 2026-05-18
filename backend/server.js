@@ -51,6 +51,9 @@ app.use(cors({ origin: FRONTEND_URL, credentials: true }));
 // JSON Parser - Automatically parses JSON request bodies into req.body
 app.use(express.json());
 
+// Serve static files (privacy policy, terms, etc.)  ← ADD THIS LINE HERE
+app.use(express.static('public'));
+
 // ============================================
 // ROUTES
 // ============================================
@@ -74,6 +77,20 @@ app.get('/', (req, res) => {
             preferences: '/api/preferences'
         },
         status: 'running'
+    });
+});
+
+app.get('/privacy-policy', (req, res) => {
+    res.json({
+        title: "ShelfLife Privacy Policy",
+        effectiveDate: "May 18, 2026",
+        sections: {
+            informationCollected: "We collect name, email, pantry items, and phone number (if you opt-in to SMS).",
+            howWeUseInfo: "To display your pantry, send expiration alerts via email/SMS, and improve the app.",
+            smsNotifications: "You opt-in by checking the SMS box in settings. Reply STOP to unsubscribe. Msg & data rates may apply.",
+            dataSharing: "We do NOT sell or share your personal information with third parties for marketing.",
+            contact: "Email gar21085@byui.edu for privacy concerns."
+        }
     });
 });
 

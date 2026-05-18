@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShelfLife Privacy Policy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 18px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .effective-date {
+            background: #f0f0f0;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        h2 {
+            color: #667eea;
+            font-size: 24px;
+            margin: 30px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        h3 {
+            color: #764ba2;
+            font-size: 18px;
+            margin: 20px 0 10px 0;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            background: #f0f4ff;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px 40px;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .content {
+                padding: 20px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍽️ ShelfLife</h1>
+            <p>Food Pantry & Emergency Preparedness Tracker</p>
+        </div>
+
+        <div class="content">
+            <div class="effective-date">
+                <strong>Effective Date:</strong> May 18, 2026 | <strong>Last Updated:</strong> May 18, 2026
+            </div>
+
+            <h2>1. Information We Collect</h2>
+            <p>ShelfLife collects the following information to provide our food tracking and notification services:</p>
+            <ul>
+                <li><strong>Account Information:</strong> Your name and email address (via Google OAuth or registration)
+                </li>
+                <li><strong>Pantry Data:</strong> Food items, quantities, categories, and expiration dates you add to
+                    your inventory</li>
+                <li><strong>Phone Number:</strong> Only if you choose to enable SMS text message notifications</li>
+                <li><strong>Usage Data:</strong> How you interact with the application to improve our service</li>
+            </ul>
+
+            <h2>2. How We Use Your Information</h2>
+            <p>We use your information exclusively for:</p>
+            <ul>
+                <li>Displaying your personal pantry inventory and expiration alerts</li>
+                <li>Sending email notifications about expiring food items (if you enable this feature)</li>
+                <li>Sending SMS text message alerts about expiring items (only if you explicitly opt-in)</li>
+                <li>Improving the ShelfLife application and user experience</li>
+            </ul>
+
+            <div class="highlight">
+                <strong>⚠️ SMS Notification Disclosure:</strong> By opting into SMS notifications, you consent to
+                receive automated text messages about expiring pantry items. Message frequency varies based on your
+                inventory. Standard message and data rates may apply. You can reply STOP to unsubscribe at any time.
+            </div>
+
+            <h2>3. SMS Opt-In Process</h2>
+            <p>You will only receive SMS messages if you explicitly opt-in through our web form:</p>
+            <ol>
+                <li>Log into your ShelfLife account</li>
+                <li>Navigate to Notification Settings</li>
+                <li>Check the "SMS Notifications" checkbox (it is NOT pre-checked)</li>
+                <li>Enter your valid mobile phone number</li>
+                <li>Click "Save Preferences"</li>
+            </ol>
+            <p>You can opt-out at any time by replying STOP to any message you receive. After opting out, you will
+                receive no further SMS messages.</p>
+
+            <h2>4. Data Sharing & Third Parties</h2>
+            <p><strong>We DO NOT sell, rent, or share your personal information with third parties for marketing
+                    purposes.</strong></p>
+            <p>We use trusted third-party services to operate ShelfLife:</p>
+            <ul>
+                <li><strong>MongoDB Atlas:</strong> Securely stores your data (encrypted at rest)</li>
+                <li><strong>Google OAuth:</strong> Handles authentication (no password storage needed)</li>
+                <li><strong>Twilio:</strong> Sends SMS notifications (only if you opt-in)</li>
+                <li><strong>Nodemailer/Gmail:</strong> Sends email notifications (only if you opt-in)</li>
+            </ul>
+            <p>All third-party providers are GDPR and CCPA compliant where applicable.</p>
+
+            <h2>5. Data Security</h2>
+            <p>We protect your data using industry-standard security practices:</p>
+            <ul>
+                <li>Passwords are hashed using bcrypt (10 salt rounds)</li>
+                <li>JWT tokens for secure, stateless authentication</li>
+                <li>HTTPS encryption in production (Render.com)</li>
+                <li>MongoDB Atlas encryption at rest and in transit</li>
+                <li>Environment variables for sensitive configuration</li>
+            </ul>
+
+            <h2>6. Your Rights</h2>
+            <p>You have full control over your data:</p>
+            <ul>
+                <li><strong>View:</strong> All your data is visible in your dashboard</li>
+                <li><strong>Modify:</strong> Edit or update any pantry item</li>
+                <li><strong>Delete:</strong> Delete individual items or your entire account</li>
+                <li><strong>Opt-out:</strong> Disable email/SMS notifications in settings or reply STOP to SMS</li>
+                <li><strong>Export:</strong> Request a copy of your data (contact us)</li>
+            </ul>
+
+            <h2>7. Data Retention</h2>
+            <p>We retain your data as long as you maintain an active account. If you delete your account, all associated
+                data is permanently removed from our database within 30 days.</p>
+
+            <h2>8. Children's Privacy</h2>
+            <p>ShelfLife is not intended for children under 13 years of age. We do not knowingly collect personal
+                information from children under 13. If you believe a child has provided us with personal information,
+                please contact us immediately.</p>
+
+            <h2>9. International Users</h2>
+            <p>ShelfLife is hosted in the United States. If you access the application from outside the US, your
+                information may be transferred to and processed in the US.</p>
+
+            <h2>10. Changes to This Policy</h2>
+            <p>We may update this privacy policy from time to time. We will notify users of material changes by updating
+                the "Last Updated" date at the top of this page. Continued use of ShelfLife after changes constitutes
+                acceptance of the updated policy.</p>
+
+            <h2>11. Contact Information</h2>
+            <p>For privacy concerns, data requests, or account deletion inquiries:</p>
+            <ul>
+                <li><strong>Email:</strong> gar21085@byui.edu</li>
+                <li><strong>Student Developer:</strong> Mitchelle Garrett</li>
+                <li><strong>Course:</strong> BYU-Idaho CSE 499 Senior Project</li>
+            </ul>
+
+            <div class="highlight">
+                <strong>📱 SMS Help:</strong> Reply HELP to any message for support. For questions about your data,
+                email gar21085@byui.edu. We will respond within 5-7 business days.
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2026 ShelfLife | Food Pantry & Emergency Preparedness Tracker</p>
+            <p>BYU-Idaho Computer Science Department | Senior Project</p>
+            <p><a href="https://shelflife-k2pg.onrender.com">Return to ShelfLife</a></p>
+        </div>
+    </div>
+</body>
+
+</html>
