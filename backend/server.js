@@ -63,6 +63,20 @@ app.use('/api/notifications', notificationRoutes);
 //Used for the preferences functionality
 app.use('/api/preferences', preferencesRoutes);
 
+app.get('/', (req, res) => {
+    res.json({
+        message: 'Welcome to ShelfLife API',
+        version: '1.0.0',
+        endpoints: {
+            auth: '/api/auth',
+            pantry: '/api/pantry',
+            notifications: '/api/notifications',
+            preferences: '/api/preferences'
+        },
+        status: 'running'
+    });
+});
+
 // ============================================
 // ERROR HANDLING
 // ============================================
