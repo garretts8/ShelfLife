@@ -1,8 +1,9 @@
 // Scheduled job to check for expiring items and send notifications
 const cron = require('node-cron');
 const PantryItem = require('../models/PantryItem');
-const User = require('../models/User');
+const UserPreference = require('../models/UserPreference');
 const { sendExpirationAlert } = require('./emailService');
+const { sendExpirationSMS } = require('./smsService');
 
 // Function to check expiring items and send emails
 const checkAndNotifyExpiringItems = async () => {
@@ -48,10 +49,19 @@ const checkAndNotifyExpiringItems = async () => {
         //Send ONE email to each user with ALL their expiring items. 
         for (const userId of Object.keys(itemsByUser)) {
             const { user, items } = itemsByUser[userId];
+            const preferences = await UserPreference.findOne({ user: userId });
 
-            if (user.email) {
-                console.log(`Sending email to ${user.email} (${items.length} items expiring)`);
-                await sendExpirationAlert(user.email, user.name, items);
+            if (!preferences || preferences.emailNotifications !== false) {
+                if (user.email) {
+                    console.log(`Sending email to ${user.email} (${items.length} items expiring)`);
+                    await sendExpirationAlert(user.email, user.name, items);
+                }
+            }
+
+            //Send SMS if enabled and phone number exists
+            if (preferences && preferences.smsNotifications && preferences.phoneNumber) {
+                console.log(`Sending SMS to ${preferences.phoneNumber} (${items.length} items expiring)`);
+                await sendExpirationSMS(preferences.phoneNumber, items);
             }
         }
 
@@ -76,9 +86,10 @@ const initCronJobs = () => {
 
     //Run once on startup to catch any missed items
     console.log('Running initial expiration check on startup...');
+
+    //Wait 5 seconds for server to fully start
     setTimeout(() => {
         checkAndNotifyExpiringItems();
-        //Wait 5 seconds for server to fully start
     }, 5000);
 
     return job;

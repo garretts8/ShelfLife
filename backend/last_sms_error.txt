@@ -1,0 +1,6 @@
+Error: The 'From' phone number provided (+18554352403) is not a valid message-capable Twilio phone number for this destination
+    at V2010.throwException (C:\BYUI\CSE 499\ShelfLife\backend\node_modules\twilio\lib\base\Version.js:50:15)
+    at C:\BYUI\CSE 499\ShelfLife\backend\node_modules\twilio\lib\base\Version.js:108:22
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async sendTestSMS (C:\BYUI\CSE 499\ShelfLife\backend\services\smsService.js:53:25)
+    at async C:\BYUI\CSE 499\ShelfLife\backend\routes\preferenceRoutes.js:68:25

@@ -5,6 +5,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import GoogleLogin from './components/GoogleLogin';
 import PantryManager from './components/PantryManager';
 import './App.css';
+import NotificationSettings from './components/NotificationSettings';
 
 // Protected Route component - redirects to login if not authenticated
 const ProtectedRoute = ({ children }) => {
@@ -49,6 +50,7 @@ const Dashboard = () => {
       </header>
       <main className="dashboard-main">
         <PantryManager />
+        <NotificationSettings />
         <div className="dashboard-card">
           <h2>🚨 Emergency Kit</h2>
           <p>Your emergency supplies status will appear here</p>

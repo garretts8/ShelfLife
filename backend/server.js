@@ -14,6 +14,8 @@ const pantryRoutes = require('./routes/pantryRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
 //Imports the cron job functionality from cronService.js
 const { initCronJobs } = require('./services/cronService');
+//Imports the preferences routes from preferencesRoutes.js
+const preferencesRoutes = require('./routes/preferenceRoutes');
 
 // ============================================
 // CONFIGURATION
@@ -58,6 +60,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/pantry', pantryRoutes);
 //Used for the notification functionality
 app.use('/api/notifications', notificationRoutes);
+//Used for the preferences functionality
+app.use('/api/preferences', preferencesRoutes);
 
 // ============================================
 // ERROR HANDLING

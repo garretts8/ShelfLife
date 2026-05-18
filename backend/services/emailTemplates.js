@@ -1,3 +1,5 @@
+//Email templates
+/*Contains templates for expiration alerts and test emails. */
 const emailStyles = require('./emailStyles');
 
 // Expiration alert email template

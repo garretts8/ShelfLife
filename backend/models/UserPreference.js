@@ -1,3 +1,6 @@
+//User preferences schema
+/*Stores user preferences for email and SMS (Short Message Service) 
+notifications for expiring items. */
 const mongoose = require('mongoose');
 
 const UserPreferenceSchema = new mongoose.Schema({
@@ -14,10 +17,6 @@ const UserPreferenceSchema = new mongoose.Schema({
     smsNotifications: {
         type: Boolean,
         default: false
-    },
-    notificationThreshold: {
-        type: Number,
-        default: 7
     },
     phoneNumber: {
         type: String,
