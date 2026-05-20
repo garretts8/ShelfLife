@@ -4,8 +4,9 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import GoogleLogin from './components/GoogleLogin';
 import PantryManager from './components/PantryManager';
-import './App.css';
 import NotificationSettings from './components/NotificationSettings';
+import RecipeSuggestions from './components/RecipeSuggestions';
+import './App.css';
 
 // Protected Route component - redirects to login if not authenticated
 const ProtectedRoute = ({ children }) => {
@@ -51,6 +52,7 @@ const Dashboard = () => {
       <main className="dashboard-main">
         <PantryManager />
         <NotificationSettings />
+        <RecipeSuggestions />
         <div className="dashboard-card">
           <h2>🚨 Emergency Kit</h2>
           <p>Your emergency supplies status will appear here</p>
@@ -59,7 +61,8 @@ const Dashboard = () => {
     </div>
   );
 };
-//AppContent function - handles routing
+
+// AppContent function - handles routing
 function AppContent() {
   return (
     <Router>
@@ -76,7 +79,7 @@ function AppContent() {
   );
 }
 
-//App function - handles Google OAuth provider and authentication provider  
+// App function - handles Google OAuth provider and authentication provider  
 function App() {
   const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 

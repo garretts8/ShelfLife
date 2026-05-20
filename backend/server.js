@@ -17,6 +17,8 @@ const { initCronJobs } = require('./services/cronService');
 //Imports the preferences routes from preferencesRoutes.js
 const preferencesRoutes = require('./routes/preferenceRoutes');
 
+const recipeRoutes = require('./routes/recipeRoutes');
+
 // ============================================
 // CONFIGURATION
 // ============================================
@@ -46,7 +48,12 @@ const app = express();
 // ============================================
 // CORS - Allows React frontend to communicate with this backend
 // credentials: true enables sending cookies/auth headers
-app.use(cors({ origin: FRONTEND_URL, credentials: true }));
+// Allow additional localhost origins during development so Vite can talk to the API
+const allowedOrigins = [FRONTEND_URL];
+if (process.env.NODE_ENV !== 'production') {
+    allowedOrigins.push('http://localhost:5173', 'http://localhost:5174');
+}
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 
 // JSON Parser - Automatically parses JSON request bodies into req.body
 app.use(express.json());
@@ -65,7 +72,8 @@ app.use('/api/pantry', pantryRoutes);
 app.use('/api/notifications', notificationRoutes);
 //Used for the preferences functionality
 app.use('/api/preferences', preferencesRoutes);
-
+//Used for the recipe functionality
+app.use('/api/recipes', recipeRoutes);
 app.get('/', (req, res) => {
     res.json({
         message: 'Welcome to ShelfLife API',
