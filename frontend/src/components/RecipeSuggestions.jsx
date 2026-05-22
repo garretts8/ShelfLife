@@ -1,3 +1,10 @@
+// RecipeSuggestions.jsx
+/*React component that fetches and displays recipe suggestions 
+based on expiring items in the user's pantry. 
+It shows matched ingredients, preparation time, and allows users 
+to view detailed recipe instructions. 
+This component helps users make the most of their food before 
+it goes to waste. */
 import React, { useState, useEffect } from 'react';
 import api from '../api';
 import './RecipeSuggestions.css';

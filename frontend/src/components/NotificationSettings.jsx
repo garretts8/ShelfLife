@@ -1,3 +1,8 @@
+// NotificationSettings.jsx
+/*React component for managing user notification preferences, 
+including email and SMS settings, and testing SMS functionality. 
+This component allows users to customize how they receive 
+notifications about their expiring food items. */
 import React, { useState, useEffect } from 'react';
 import api from '../api';
 

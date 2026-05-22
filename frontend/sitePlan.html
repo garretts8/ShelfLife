@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShelfLife - Site Plan</title>
+    <link rel="stylesheet" href="sitePlan.css" />
+  </head>
+  <body>
+    <div class="document">
+      <div class="doc-header">
+        <h1>🍽️ ShelfLife</h1>
+        <p>Food Pantry & Emergency Preparedness Tracker - Site Plan</p>
+      </div>
+
+      <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showSection('landing')">
+          Landing Page
+        </button>
+        <button class="nav-tab" onclick="showSection('dashboard')">
+          Dashboard
+        </button>
+        <button class="nav-tab" onclick="showSection('add-item')">
+          Add/Edit Item Form
+        </button>
+        <button class="nav-tab" onclick="showSection('recipes')">
+          Recipe Suggestions
+        </button>
+        <button class="nav-tab" onclick="showSection('notifications')">
+          Notifications
+        </button>
+        <button class="nav-tab" onclick="showSection('component-tree')">
+          Component Tree
+        </button>
+      </div>
+
+      <div class="content">
+        <!-- LANDING PAGE (with recipe previews) -->
+        <div id="landing" class="section active">
+          <h2>🏠 Landing Page (Public)</h2>
+          <div class="page-mockup">
+            <div class="mockup-header">GET / (Public - No Login Required)</div>
+            <div class="mockup-body">
+              <div class="landing-layout">
+                <!-- Hero Section -->
+                <div class="hero-section">
+                  <div class="hero-icon">🍽️</div>
+                  <h1 class="hero-title">ShelfLife</h1>
+                  <p class="hero-subtitle">
+                    Track your pantry. Stop food waste. Get recipe ideas.
+                  </p>
+                  <div class="google-login-btn">
+                    <span style="font-size: 20px">G</span> Sign in with Google
+                  </div>
+                </div>
+
+                <!-- Featured Recipes Preview -->
+                <div class="featured-recipes">
+                  <h2>Try These Recipes</h2>
+                  <p class="preview-note">
+                    📌 Sample recipes — sign in to see suggestions based on YOUR
+                    pantry items
+                  </p>
+
+                  <div class="recipes-grid">
+                    <div class="sample-recipe-card">
+                      <div class="recipe-emoji">🥣</div>
+                      <h3>Fresh Salsa</h3>
+                      <p class="recipe-ingredients">
+                        Uses: tomatoes, onions, cilantro, lime
+                      </p>
+                      <div class="recipe-meta-info">
+                        <span>⏱️ 10 min</span>
+                        <span>🍽️ 4 servings</span>
+                      </div>
+                      <div class="recipe-tag">No-cook</div>
+                    </div>
+
+                    <div class="sample-recipe-card">
+                      <div class="recipe-emoji">🍝</div>
+                      <h3>Tomato Pasta</h3>
+                      <p class="recipe-ingredients">
+                        Uses: tomatoes, garlic, pasta, olive oil
+                      </p>
+                      <div class="recipe-meta-info">
+                        <span>⏱️ 25 min</span>
+                        <span>🍽️ 4 servings</span>
+                      </div>
+                      <div class="recipe-tag">Vegetarian</div>
+                    </div>
+
+                    <div class="sample-recipe-card">
+                      <div class="recipe-emoji">🥣</div>
+                      <h3>Three Bean Chili</h3>
+                      <p class="recipe-ingredients">
+                        Uses: beans, tomatoes, onions, bell peppers
+                      </p>
+                      <div class="recipe-meta-info">
+                        <span>⏱️ 30 min</span>
+                        <span>🍽️ 6 servings</span>
+                      </div>
+                      <div class="recipe-tag">Hearty</div>
+                    </div>
+
+                    <div class="sample-recipe-card">
+                      <div class="recipe-emoji">🍳</div>
+                      <h3>Garlic Butter Rice</h3>
+                      <p class="recipe-ingredients">
+                        Uses: rice, garlic, butter
+                      </p>
+                      <div class="recipe-meta-info">
+                        <span>⏱️ 15 min</span>
+                        <span>🍽️ 4 servings</span>
+                      </div>
+                      <div class="recipe-tag">Side dish</div>
+                    </div>
+
+                    <div class="sample-recipe-card">
+                      <div class="recipe-emoji">🥗</div>
+                      <h3>Vegetable Stir Fry</h3>
+                      <p class="recipe-ingredients">
+                        Uses: bell peppers, onions, carrots, broccoli
+                      </p>
+                      <div class="recipe-meta-info">
+                        <span>⏱️ 20 min</span>
+                        <span>🍽️ 4 servings</span>
+                      </div>
+                      <div class="recipe-tag">Healthy</div>
+                    </div>
+
+                    <div class="sample-recipe-card">
+                      <div class="recipe-emoji">🍚</div>
+                      <h3>Rice & Beans</h3>
+                      <p class="recipe-ingredients">
+                        Uses: rice, beans, onions, garlic
+                      </p>
+                      <div class="recipe-meta-info">
+                        <span>⏱️ 20 min</span>
+                        <span>🍽️ 4 servings</span>
+                      </div>
+                      <div class="recipe-tag">Budget-friendly</div>
+                    </div>
+                  </div>
+
+                  <div class="cta-section">
+                    <p class="cta-text">
+                      💡 Sign in to see recipes based on
+                      <strong>YOUR</strong> expiring pantry items!
+                    </p>
+                    <button class="btn btn-primary cta-button">
+                      Sign in to get started →
+                    </button>
+                  </div>
+                </div>
+
+                <!-- How It Works Section -->
+                <div class="how-it-works">
+                  <h2>How It Works</h2>
+                  <div class="steps-grid">
+                    <div class="step">
+                      <div class="step-number">1</div>
+                      <h3>Add Your Items</h3>
+                      <p>Log what's in your pantry with expiration dates</p>
+                    </div>
+                    <div class="step">
+                      <div class="step-number">2</div>
+                      <h3>Get Alerts</h3>
+                      <p>Receive notifications before items expire</p>
+                    </div>
+                    <div class="step">
+                      <div class="step-number">3</div>
+                      <h3>Cook Smart</h3>
+                      <p>Get recipe suggestions using expiring ingredients</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="legend">
+            <div class="legend-item">
+              <div class="legend-color" style="background: #4059ad"></div>
+              Call-to-Action Button
+            </div>
+            <div class="legend-item">
+              <div class="legend-color" style="background: #fa9f42"></div>
+              Recipe Preview Cards Accent
+            </div>
+          </div>
+          <p>
+            <strong>Design Note:</strong> Recipe previews are static samples.
+            After login, recipes are personalized based on user's expiring
+            items.
+          </p>
+        </div>
+
+        <!-- DASHBOARD (same as before) -->
+        <div id="dashboard" class="section">
+          <h2>📊 Dashboard (Authenticated)</h2>
+          <div class="page-mockup">
+            <div class="mockup-header">
+              GET /dashboard (Protected - Requires Login)
+            </div>
+            <div class="mockup-body">
+              <div class="wireframe-header">
+                <div class="logo">🍽️ ShelfLife</div>
+                <div class="user-info">
+                  <span>Welcome, Mitchelle!</span>
+                  <button class="btn btn-outline">Logout</button>
+                </div>
+              </div>
+
+              <div class="expiring-section">
+                <strong>⚠️ Expiring Soon (2 items)</strong>
+                <div class="expiring-list">
+                  <div class="expiring-item">
+                    <span><strong>Milk</strong> - Expires May 25, 2026</span>
+                    <button class="btn btn-outline" style="padding: 4px 12px">
+                      Edit
+                    </button>
+                  </div>
+                  <div class="expiring-item">
+                    <span><strong>Eggs</strong> - Expires May 26, 2026</span>
+                    <button class="btn btn-outline" style="padding: 4px 12px">
+                      Edit
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                style="
+                  display: flex;
+                  justify-content: flex-end;
+                  margin-bottom: 15px;
+                ">
+                <button class="btn btn-primary">+ Add Item</button>
+              </div>
+
+              <div class="items-grid">
+                <div class="item-card status-good">
+                  <div class="item-header">
+                    <strong>Canned Beans</strong>
+                    <span class="badge badge-good">Good</span>
+                  </div>
+                  <p style="font-size: 13px; margin: 5px 0">Quantity: 5 cans</p>
+                  <p style="font-size: 13px; margin: 5px 0">Category: canned</p>
+                  <p style="font-size: 13px; margin: 5px 0">
+                    Expires: Jun 15, 2026
+                  </p>
+                  <div style="display: flex; gap: 8px; margin-top: 10px">
+                    <button class="btn btn-outline" style="padding: 4px 12px">
+                      Edit
+                    </button>
+                    <button
+                      class="btn btn-outline"
+                      style="padding: 4px 12px; color: #ba5624">
+                      Delete
+                    </button>
+                  </div>
+                </div>
+                <div class="item-card status-expiring">
+                  <div class="item-header">
+                    <strong>Milk</strong>
+                    <span class="badge badge-expiring">Expiring Soon</span>
+                  </div>
+                  <p style="font-size: 13px; margin: 5px 0">
+                    Quantity: 1 gallon
+                  </p>
+                  <p style="font-size: 13px; margin: 5px 0">Category: dairy</p>
+                  <p style="font-size: 13px; margin: 5px 0">
+                    Expires: May 25, 2026
+                  </p>
+                  <div style="display: flex; gap: 8px; margin-top: 10px">
+                    <button class="btn btn-outline" style="padding: 4px 12px">
+                      Edit
+                    </button>
+                    <button
+                      class="btn btn-outline"
+                      style="padding: 4px 12px; color: #ba5624">
+                      Delete
+                    </button>
+                  </div>
+                </div>
+                <div class="item-card status-expired">
+                  <div class="item-header">
+                    <strong>Tomatoes</strong>
+                    <span class="badge badge-expired">Expired</span>
+                  </div>
+                  <p style="font-size: 13px; margin: 5px 0">
+                    Quantity: 4 whole
+                  </p>
+                  <p style="font-size: 13px; margin: 5px 0">
+                    Category: produce
+                  </p>
+                  <p style="font-size: 13px; margin: 5px 0">
+                    Expires: May 20, 2026
+                  </p>
+                  <div style="display: flex; gap: 8px; margin-top: 10px">
+                    <button class="btn btn-outline" style="padding: 4px 12px">
+                      Edit
+                    </button>
+                    <button
+                      class="btn btn-outline"
+                      style="padding: 4px 12px; color: #ba5624">
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADD/EDIT ITEM FORM -->
+        <div id="add-item" class="section">
+          <h2>📝 Add/Edit Item Form</h2>
+          <div class="page-mockup">
+            <div class="mockup-header">Modal / Form View</div>
+            <div class="mockup-body">
+              <div
+                class="wireframe-card"
+                style="max-width: 550px; margin: 0 auto">
+                <h3 style="margin-bottom: 20px">Add New Item</h3>
+                <div class="form-group">
+                  <label>Item Name *</label>
+                  <input
+                    type="text"
+                    placeholder="e.g., Canned Beans"
+                    value="Canned Beans" />
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number" value="5" />
+                  </div>
+                  <div class="form-group">
+                    <label>Unit</label>
+                    <select>
+                      <option>None</option>
+                      <option selected>cans</option>
+                      <option>lbs</option>
+                      <option>oz</option>
+                      <option>packages</option>
+                      <option>bottles</option>
+                      <option>boxes</option>
+                      <option>pieces</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Category *</label>
+                    <select>
+                      <option>canned</option>
+                      <option>dry</option>
+                      <option>dairy</option>
+                      <option selected>produce</option>
+                      <option>meat</option>
+                      <option>frozen</option>
+                      <option>beverage</option>
+                      <option>spices</option>
+                      <option>other</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Expiration Date *</label>
+                    <input type="date" value="2026-05-25" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Notes (optional)</label>
+                  <textarea
+                    rows="2"
+                    placeholder="Add any notes about this item..."></textarea>
+                </div>
+                <div style="display: flex; gap: 12px; margin-top: 20px">
+                  <button class="btn btn-primary">Add Item</button>
+                  <button class="btn btn-outline">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RECIPE SUGGESTIONS (Authenticated) -->
+        <div id="recipes" class="section">
+          <h2>🍳 Recipe Suggestions (After Login)</h2>
+          <div class="page-mockup">
+            <div class="mockup-header">
+              Component: RecipeSuggestions (Personalized)
+            </div>
+            <div class="mockup-body">
+              <div class="wireframe-card">
+                <h3>🍳 Recipe Suggestions</h3>
+                <p style="color: #666; font-size: 14px; margin-bottom: 20px">
+                  Based on items expiring soon in YOUR pantry
+                </p>
+
+                <div class="recipe-item">
+                  <div class="recipe-header">
+                    <strong>Fresh Salsa</strong>
+                    <span class="match-count">3 ingredients match</span>
+                  </div>
+                  <p style="font-size: 13px; color: #666">
+                    Quick no-cook salsa for chips or tacos
+                  </p>
+                  <div
+                    style="
+                      display: flex;
+                      gap: 15px;
+                      margin: 8px 0;
+                      font-size: 12px;
+                      color: #888;
+                    ">
+                    <span>⏱️ 10 min</span>
+                    <span>🍽️ 4 servings</span>
+                  </div>
+                  <button class="btn btn-outline" style="padding: 4px 12px">
+                    View Recipe
+                  </button>
+                </div>
+
+                <div class="recipe-item">
+                  <div class="recipe-header">
+                    <strong>Tomato Pasta</strong>
+                    <span class="match-count">2 ingredients match</span>
+                  </div>
+                  <p style="font-size: 13px; color: #666">
+                    Simple and delicious pasta with fresh tomato sauce
+                  </p>
+                  <div
+                    style="
+                      display: flex;
+                      gap: 15px;
+                      margin: 8px 0;
+                      font-size: 12px;
+                      color: #888;
+                    ">
+                    <span>⏱️ 25 min</span>
+                    <span>🍽️ 4 servings</span>
+                  </div>
+                  <button class="btn btn-outline" style="padding: 4px 12px">
+                    View Recipe
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p>
+            <strong>Note:</strong> These are personalized based on the user's
+            actual expiring pantry items.
+          </p>
+        </div>
+
+        <!-- NOTIFICATION SETTINGS -->
+        <div id="notifications" class="section">
+          <h2>📱 Notification Settings</h2>
+          <div class="page-mockup">
+            <div class="mockup-header">Component: NotificationSettings</div>
+            <div class="mockup-body">
+              <div class="wireframe-card" style="max-width: 500px">
+                <h3>📱 Notification Settings</h3>
+                <div class="form-group">
+                  <label>
+                    <input type="checkbox" checked /> ☑ Email Notifications
+                  </label>
+                  <p style="font-size: 12px; color: #666; margin-top: 5px">
+                    Receive expiration alerts via email
+                  </p>
+                </div>
+                <div class="form-group">
+                  <label> <input type="checkbox" /> ☐ SMS Notifications </label>
+                  <p style="font-size: 12px; color: #666; margin-top: 5px">
+                    Receive text message alerts
+                  </p>
+                </div>
+                <div class="form-group">
+                  <label>Phone Number</label>
+                  <input type="tel" placeholder="+1 234 567 8900" />
+                  <p style="font-size: 12px; color: #666; margin-top: 5px">
+                    Message and data rates may apply. Reply STOP to unsubscribe.
+                  </p>
+                </div>
+                <div class="form-group">
+                  <label>Reminder Days</label>
+                  <select>
+                    <option>3 days before</option>
+                    <option selected>7 days before</option>
+                    <option>14 days before</option>
+                  </select>
+                </div>
+                <button class="btn btn-primary">Save Preferences</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COMPONENT TREE -->
+        <div id="component-tree" class="section">
+          <h2>🌲 Component Hierarchy</h2>
+          <div class="page-mockup">
+            <div class="mockup-body">
+              <div class="wireframe-card">
+                <pre class="component-tree">
+App
+├── GoogleOAuthProvider
+│   └── AuthProvider
+│       └── Router
+│           ├── Route (path="/")
+│           │   └── LandingPage (Public)
+│           │       ├── HeroSection
+│           │       ├── GoogleLogin
+│           │       ├── FeaturedRecipes (sample recipes)
+│           │       └── HowItWorks
+│           │
+│           ├── Route (path="/login")
+│           │   └── LoginPage
+│           │       └── GoogleLogin
+│           │
+│           └── Route (path="/dashboard")
+│               └── ProtectedRoute
+│                   └── Dashboard
+│                       ├── Header
+│                       ├── PantryManager
+│                       ├── RecipeSuggestions (personalized)
+│                       ├── NotificationSettings
+│                       └── EmergencyKit (placeholder)
+                            </pre
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>
+          © 2026 ShelfLife | Food Pantry & Emergency Preparedness Tracker |
+          BYU-Idaho CSE 499 Senior Project
+        </p>
+        <p style="margin-top: 10px">
+          <a href="#">Live Demo</a> | <a href="#">Privacy Policy</a> |
+          <a href="#">GitHub Repository</a>
+        </p>
+      </div>
+    </div>
+
+    <script>
+      function showSection(sectionId) {
+        document.querySelectorAll('.section').forEach((section) => {
+          section.classList.remove('active');
+        });
+        document.getElementById(sectionId).classList.add('active');
+
+        document.querySelectorAll('.nav-tab').forEach((tab) => {
+          tab.classList.remove('active');
+        });
+        event.target.classList.add('active');
+      }
+    </script>
+  </body>
+</html>

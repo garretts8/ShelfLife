@@ -44,7 +44,15 @@ const PantryItemSchema = new mongoose.Schema({
     updatedAt: {
         type: Date,
         default: Date.now
-    }
+    }, 
+    notifiedForExpiration: {
+        type: Boolean,
+        default: false
+    },
+    lastNotifiedAt: {
+        type: Date,
+        default: null
+}
 });
 
 // Indexes for efficient querying
