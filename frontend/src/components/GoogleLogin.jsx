@@ -2,10 +2,8 @@
 
 import { GoogleLogin as StandardGoogleLogin } from '@react-oauth/google';
 import api from '../api';
-import { useAuth } from '../context/AuthContext';
 
 const GoogleLogin = () => {
-    const { login } = useAuth();
 
     return (
         <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
@@ -19,11 +17,8 @@ const GoogleLogin = () => {
                             token: credentialResponse.credential
                         });
 
-                        // Save token and user info
+                        // Save token and redirect to dashboard
                         localStorage.setItem('token', res.data.token);
-                        login(res.data.user);
-
-                        // Redirect to dashboard
                         window.location.href = '/dashboard';
                     } catch (error) {
                         console.error('Backend error:', error.response?.data || error.message);

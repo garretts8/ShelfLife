@@ -16,8 +16,10 @@ const notificationRoutes = require('./routes/notificationRoutes');
 const { initCronJobs } = require('./services/cronService');
 //Imports the preferences routes from preferencesRoutes.js
 const preferencesRoutes = require('./routes/preferenceRoutes');
-
+//Imports the recipe routes from recipeRoutes.js
 const recipeRoutes = require('./routes/recipeRoutes');
+//Imports the emergency kit routes from emergencyKitRoutes.js
+const emergencyKitRoutes = require('./routes/emergencyKitRoutes');
 
 // ============================================
 // CONFIGURATION
@@ -101,6 +103,8 @@ app.get('/privacy-policy', (req, res) => {
         }
     });
 });
+//Used for the emergency kit functionality
+app.use('/api/emergency-kit', emergencyKitRoutes);
 
 // ============================================
 // ERROR HANDLING

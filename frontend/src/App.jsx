@@ -1,4 +1,3 @@
-//This is the root component of the React application.
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -6,6 +5,7 @@ import GoogleLogin from './components/GoogleLogin';
 import PantryManager from './components/PantryManager';
 import NotificationSettings from './components/NotificationSettings';
 import RecipeSuggestions from './components/RecipeSuggestions';
+import EmergencyKitManager from './components/EmergencyKitManager';
 import './App.css';
 
 // Protected Route component - redirects to login if not authenticated
@@ -53,10 +53,7 @@ const Dashboard = () => {
         <PantryManager />
         <NotificationSettings />
         <RecipeSuggestions />
-        <div className="dashboard-card">
-          <h2>🚨 Emergency Kit</h2>
-          <p>Your emergency supplies status will appear here</p>
-        </div>
+        <EmergencyKitManager />
       </main>
     </div>
   );

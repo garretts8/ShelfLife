@@ -1,0 +1,311 @@
+/* Emergency Kit Manager Styles */
+
+.emergency-kit-manager {
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.kit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.kit-header h2 {
+    margin: 0;
+    color: #003d5b;
+}
+
+/* Expiring Soon Section */
+.kit-expiring-section {
+    background: #fef5e8;
+    border-left: 4px solid #edae49;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+.kit-expiring-section h3 {
+    margin: 0 0 12px 0;
+    color: #003d5b;
+}
+
+.kit-expiring-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.kit-expiring-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 12px 16px;
+    border-radius: 6px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.kit-expiring-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.category-icon {
+    font-size: 20px;
+}
+
+.expiry-date {
+    color: #edae49;
+    font-size: 13px;
+}
+
+/* Category Filters */
+.category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.filter-btn:hover {
+    background: #edae49;
+    color: white;
+}
+
+.filter-btn.active {
+    background: #009b72;
+    color: white;
+}
+
+/* Form Styles */
+.kit-form {
+    background: #faf8f4;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    border: 1px solid #e0e0e0;
+}
+
+.kit-form h3 {
+    margin: 0 0 20px 0;
+    color: #003d5b;
+}
+
+.check-group {
+    display: flex;
+    align-items: center;
+}
+
+.check-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.check-group input {
+    width: auto;
+}
+
+.check-group small {
+    display: block;
+    margin-top: 4px;
+    margin-left: 24px;
+    color: #666;
+}
+
+/* Items Grid */
+.kit-items-list h3 {
+    margin: 24px 0 16px 0;
+    color: #003d5b;
+}
+
+.category-group {
+    margin-bottom: 32px;
+}
+
+.category-title {
+    margin: 0 0 12px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #edae49;
+    color: #003d5b;
+}
+
+.kit-items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.kit-item-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 16px;
+    transition: box-shadow 0.2s;
+}
+
+.kit-item-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.kit-item-card.essential {
+    background: linear-gradient(135deg, #ffffff 0%, #fef5e8 100%);
+    border-color: #edae49;
+}
+
+.kit-item-card.status-expiring {
+    border-left: 4px solid #edae49;
+}
+
+.kit-item-card.status-expired {
+    border-left: 4px solid #af1b3f;
+}
+
+.kit-item-card.status-good {
+    border-left: 4px solid #009b72;
+}
+
+.kit-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.kit-item-header h4 {
+    margin: 0;
+    color: #003d5b;
+}
+
+.essential-badge {
+    background: #edae49;
+    color: #003d5b;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.kit-item-details {
+    margin-bottom: 12px;
+}
+
+.kit-item-details p {
+    margin: 6px 0;
+    font-size: 13px;
+    color: #4a5568;
+}
+
+.item-notes {
+    font-style: italic;
+    color: #718096;
+    font-size: 12px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.kit-item-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.status-badge.status-expiring {
+    background: #fef5e8;
+    color: #edae49;
+}
+
+.status-badge.status-expired {
+    background: #fce4e4;
+    color: #af1b3f;
+}
+
+.status-badge.status-good {
+    background: #e0f5ef;
+    color: #009b72;
+}
+
+/* Utility Classes */
+.btn-small {
+    background: #003d5b;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-small:hover {
+    background: #002a40;
+}
+
+.empty-message {
+    text-align: center;
+    color: #718096;
+    padding: 40px;
+    background: #faf8f4;
+    border-radius: 8px;
+}
+
+.kit-loading {
+    text-align: center;
+    padding: 40px;
+    color: #718096;
+}
+
+@media (max-width: 768px) {
+    .kit-expiring-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .kit-expiring-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .category-filters {
+        justify-content: center;
+    }
+    
+    .kit-items-grid {
+        grid-template-columns: 1fr;
+    }
+}
