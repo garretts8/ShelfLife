@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import emergencyKitService from '../services/emergencyKitService';
+import api from '../api';  
 import './EmergencyKitManager.css';
 
 const EmergencyKitManager = () => {
@@ -23,16 +24,16 @@ const EmergencyKitManager = () => {
 
     // Category options with icons
     const categories = [
-        { value: 'water', label: '💧 Water', icon: '💧' },
-        { value: 'food', label: '🍫 Food', icon: '🍫' },
-        { value: 'first aid', label: '🩹 First Aid', icon: '🩹' },
-        { value: 'tools', label: '🔧 Tools', icon: '🔧' },
-        { value: 'light', label: '🔦 Light', icon: '🔦' },
-        { value: 'communication', label: '📻 Communication', icon: '📻' },
-        { value: 'hygiene', label: '🧼 Hygiene', icon: '🧼' },
-        { value: 'documents', label: '📋 Documents', icon: '📋' },
-        { value: 'clothing', label: '👕 Clothing', icon: '👕' },
-        { value: 'other', label: '📦 Other', icon: '📦' }
+        { value: 'water', label: ' Water', icon: '💧' },
+        { value: 'food', label: ' Food', icon: '🍫' },
+        { value: 'first aid', label: ' First Aid', icon: '🩹' },
+        { value: 'tools', label: ' Tools', icon: '🔧' },
+        { value: 'light', label: ' Light', icon: '🔦' },
+        { value: 'communication', label: ' Communication', icon: '📻' },
+        { value: 'hygiene', label: ' Hygiene', icon: '🧼' },
+        { value: 'documents', label: ' Documents', icon: '📋' },
+        { value: 'clothing', label: ' Clothing', icon: '👕' },
+        { value: 'other', label: ' Other', icon: '📦' }
     ];
 
     // Load items on component mount
@@ -53,6 +54,38 @@ const EmergencyKitManager = () => {
         } catch (err) {
             setError('Failed to load emergency kit items');
             console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // ============================================
+    // PDF DOWNLOAD FUNCTION - ADD THIS
+    // ============================================
+    const downloadPDF = async () => {
+        try {
+            setLoading(true);
+            const response = await api.get('/emergency-kit/download-pdf', {
+                responseType: 'blob'  // Important for file download
+            });
+            
+            // Create a download link
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'emergency-kit-checklist.pdf');
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.URL.revokeObjectURL(url);
+            
+        } catch (error) {
+            console.error('PDF download error:', error);
+            if (error.response?.status === 404) {
+                alert('No items in your emergency kit. Add some items first!');
+            } else {
+                alert('Failed to generate PDF. Please try again.');
+            }
         } finally {
             setLoading(false);
         }
@@ -143,9 +176,14 @@ const EmergencyKitManager = () => {
         <div className="emergency-kit-manager">
             <div className="kit-header">
                 <h2>🚨 Emergency Kit</h2>
-                <button onClick={() => setShowForm(!showForm)} className="btn-add">
-                    {showForm ? 'Cancel' : '+ Add Item'}
-                </button>
+                <div className="kit-header-buttons">
+                    <button onClick={downloadPDF} className="btn-pdf">
+                        📄 Print Checklist
+                    </button>
+                    <button onClick={() => setShowForm(!showForm)} className="btn-add">
+                        {showForm ? 'Cancel' : '+ Add Item'}
+                    </button>
+                </div>
             </div>
 
             {error && <div className="error-message">{error}</div>}

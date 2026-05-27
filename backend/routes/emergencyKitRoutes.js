@@ -4,17 +4,6 @@ const router = express.Router();
 const EmergencyKitItem = require('../models/EmergencyKitItem');
 const { protect } = require('../middleware/authMiddleware');
 
-// ============================================
-// Helper function to fix timezone offset issue
-// ============================================
-const parseLocalDate = (dateString) => {
-    if (!dateString) return null;
-    // Create date and set to noon UTC to avoid day shift
-    const date = new Date(dateString);
-    date.setUTCHours(12, 0, 0, 0);
-    return date;
-};
-
 // Debug logging: log each incoming request to these routes (do not print tokens)
 router.use((req, res, next) => {
     console.log('EmergencyKit route:', req.method, req.path, 'AuthHeader:', req.headers.authorization ? 'present' : 'missing');
@@ -44,7 +33,7 @@ router.post('/', async (req, res) => {
             quantity: quantity || 1,
             unit: unit || '',
             category,
-            replacementDate: replacementDate ? parseLocalDate(replacementDate) : null,  // FIXED
+            replacementDate: replacementDate ? new Date(replacementDate) : null,
             notes: notes || '',
             location: location || '',
             isEssential: isEssential || false
@@ -119,6 +108,39 @@ router.get('/expiring-soon', async (req, res) => {
 });
 
 // ============================================
+// PDF GENERATION - Download emergency kit as PDF
+// GET /api/emergency-kit/download-pdf
+// ============================================
+router.get('/download-pdf', async (req, res) => {
+    try {
+        // Get all emergency kit items for the user
+        const items = await EmergencyKitItem.find({ user: req.user.id })
+            .sort({ category: 1, name: 1 });
+        
+        if (items.length === 0) {
+            return res.status(404).json({ 
+                message: 'No items in your emergency kit. Add some items first!' 
+            });
+        }
+        
+        // Generate PDF
+        const { generateEmergencyKitPDF } = require('../services/pdfService');
+        const pdfBuffer = await generateEmergencyKitPDF(items, req.user.name);
+        
+        // Set response headers for PDF download
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename="emergency-kit-checklist.pdf"');
+        res.setHeader('Content-Length', pdfBuffer.length);
+        
+        res.send(pdfBuffer);
+        
+    } catch (error) {
+        console.error('PDF Generation error:', error);
+        res.status(500).json({ message: 'Failed to generate PDF', error: error.message });
+    }
+});
+
+// ============================================
 // READ - Get single item by ID
 // GET /api/emergency-kit/:id
 // ============================================
@@ -166,7 +188,7 @@ router.put('/:id', async (req, res) => {
         item.quantity = quantity !== undefined ? quantity : item.quantity;
         item.unit = unit !== undefined ? unit : item.unit;
         item.category = category || item.category;
-        item.replacementDate = replacementDate ? parseLocalDate(replacementDate) : item.replacementDate;  // FIXED
+        item.replacementDate = replacementDate ? new Date(replacementDate) : item.replacementDate;
         item.notes = notes !== undefined ? notes : item.notes;
         item.location = location !== undefined ? location : item.location;
         item.isEssential = isEssential !== undefined ? isEssential : item.isEssential;
@@ -201,6 +223,39 @@ router.delete('/:id', async (req, res) => {
     } catch (error) {
         console.error('Delete kit item error:', error);
         res.status(500).json({ message: 'Failed to delete item' });
+    }
+});
+
+// ============================================
+// PDF GENERATION - Download emergency kit as PDF
+// GET /api/emergency-kit/download-pdf
+// ============================================
+router.get('/download-pdf', async (req, res) => {
+    try {
+        // Get all emergency kit items for the user
+        const items = await EmergencyKitItem.find({ user: req.user.id })
+            .sort({ category: 1, name: 1 });
+        
+        if (items.length === 0) {
+            return res.status(404).json({ 
+                message: 'No items in your emergency kit. Add some items first!' 
+            });
+        }
+        
+        // Generate PDF
+        const { generateEmergencyKitPDF } = require('../services/pdfService');
+        const pdfBuffer = await generateEmergencyKitPDF(items, req.user.name);
+        
+        // Set response headers for PDF download
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename="emergency-kit-checklist.pdf"');
+        res.setHeader('Content-Length', pdfBuffer.length);
+        
+        res.send(pdfBuffer);
+        
+    } catch (error) {
+        console.error('PDF Generation error:', error);
+        res.status(500).json({ message: 'Failed to generate PDF', error: error.message });
     }
 });
 
