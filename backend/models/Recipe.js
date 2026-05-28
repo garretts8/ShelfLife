@@ -59,6 +59,16 @@ const RecipeSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    averageRating: {
+        type: Number,
+        default: 0,
+        min: 0,
+        max: 5
+    },
+    ratingCount: {
+        type: Number,
+        default: 0
     }
 });
 

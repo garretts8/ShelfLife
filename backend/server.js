@@ -20,6 +20,7 @@ const preferencesRoutes = require('./routes/preferenceRoutes');
 const recipeRoutes = require('./routes/recipeRoutes');
 //Imports the emergency kit routes from emergencyKitRoutes.js
 const emergencyKitRoutes = require('./routes/emergencyKitRoutes');
+const recipePreferenceRoutes = require('./routes/recipePreferenceRoutes');
 
 // ============================================
 // CONFIGURATION
@@ -105,6 +106,7 @@ app.get('/privacy-policy', (req, res) => {
 });
 //Used for the emergency kit functionality
 app.use('/api/emergency-kit', emergencyKitRoutes);
+app.use('/api/recipe-preferences', recipePreferenceRoutes);
 
 // ============================================
 // ERROR HANDLING

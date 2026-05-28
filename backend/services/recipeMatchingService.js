@@ -1,6 +1,9 @@
 //Recipe matching engine - matches expiring items to recipes
 const Recipe = require('../models/Recipe');
 
+const RecipePreference = require('../models/RecipePreference');
+
+
 // Normalize ingredient name for matching (remove plurals, common words)
 const normalizeIngredient = (ingredient) => {
     if (!ingredient) return '';
@@ -113,7 +116,7 @@ const matchRecipesToExpiringItems = async (expiringItems) => {
         .slice(0, 5); // Top 5 suggestions
 };
 
-// Get recipe suggestions based on user's expiring items
+// Update the getRecipeSuggestions function
 const getRecipeSuggestions = async (userId) => {
     try {
         // Get expiring items for this user (within 7 days)
@@ -133,7 +136,39 @@ const getRecipeSuggestions = async (userId) => {
             return [];
         }
         
-        return await matchRecipesToExpiringItems(expiringItems);
+        // Get user's hidden recipes
+        const hiddenPreferences = await RecipePreference.find({ 
+            user: userId, 
+            isHidden: true 
+        });
+        const hiddenRecipeIds = hiddenPreferences.map(p => p.recipe.toString());
+        
+        // Get user's favorite recipes (to prioritize)
+        const favoritePreferences = await RecipePreference.find({ 
+            user: userId, 
+            isFavorite: true 
+        });
+        const favoriteRecipeIds = favoritePreferences.map(p => p.recipe.toString());
+        
+        // Get matched recipes
+        let matchedRecipes = await matchRecipesToExpiringItems(expiringItems);
+        
+        // Filter out hidden recipes
+        matchedRecipes = matchedRecipes.filter(recipe => 
+            !hiddenRecipeIds.includes(recipe._id.toString())
+        );
+        
+        // Sort: favorites first, then by match count
+        matchedRecipes.sort((a, b) => {
+            const aIsFavorite = favoriteRecipeIds.includes(a._id.toString());
+            const bIsFavorite = favoriteRecipeIds.includes(b._id.toString());
+            
+            if (aIsFavorite && !bIsFavorite) return -1;
+            if (!aIsFavorite && bIsFavorite) return 1;
+            return b.matchCount - a.matchCount;
+        });
+        
+        return matchedRecipes.slice(0, 5);
         
     } catch (error) {
         console.error('Error getting recipe suggestions:', error);

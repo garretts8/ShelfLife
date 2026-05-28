@@ -1,10 +1,10 @@
-/* Emergency Kit Manager Styles */
+/* Emergency Kit Manager Styles - New Color Palette */
 
 .emergency-kit-manager {
-    padding: 20px;
     background: white;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .kit-header {
@@ -18,13 +18,35 @@
 
 .kit-header h2 {
     margin: 0;
-    color: #003d5b;
+    color: #2B5B84;
+}
+
+.kit-header-buttons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.btn-pdf {
+    background: #BF3A45;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.btn-pdf:hover {
+    background: #a0303a;
 }
 
 /* Expiring Soon Section */
 .kit-expiring-section {
     background: #fef5e8;
-    border-left: 4px solid #edae49;
+    border-left: 4px solid #E8934B;
     padding: 16px;
     border-radius: 8px;
     margin-bottom: 24px;
@@ -32,7 +54,7 @@
 
 .kit-expiring-section h3 {
     margin: 0 0 12px 0;
-    color: #003d5b;
+    color: #2B5B84;
 }
 
 .kit-expiring-list {
@@ -64,7 +86,7 @@
 }
 
 .expiry-date {
-    color: #edae49;
+    color: #E8934B;
     font-size: 13px;
 }
 
@@ -80,27 +102,30 @@
 
 .filter-btn {
     padding: 8px 16px;
-    background: #f0f0f0;
-    border: none;
+    background: #F7F6F2;
+    border: 1px solid #e0e0e0;
     border-radius: 20px;
     cursor: pointer;
     font-size: 14px;
     transition: all 0.2s;
+    color: #2B5B84;
 }
 
 .filter-btn:hover {
-    background: #edae49;
+    background: #E8934B;
     color: white;
+    border-color: #E8934B;
 }
 
 .filter-btn.active {
-    background: #009b72;
+    background: #2B5B84;
     color: white;
+    border-color: #2B5B84;
 }
 
 /* Form Styles */
 .kit-form {
-    background: #faf8f4;
+    background: #F7F6F2;
     padding: 20px;
     border-radius: 12px;
     margin-bottom: 24px;
@@ -109,7 +134,7 @@
 
 .kit-form h3 {
     margin: 0 0 20px 0;
-    color: #003d5b;
+    color: #2B5B84;
 }
 
 .check-group {
@@ -132,13 +157,14 @@
     display: block;
     margin-top: 4px;
     margin-left: 24px;
-    color: #666;
+    color: #5a6e7a;
+    font-size: 11px;
 }
 
-/* Items Grid */
+/* Items List */
 .kit-items-list h3 {
     margin: 24px 0 16px 0;
-    color: #003d5b;
+    color: #2B5B84;
 }
 
 .category-group {
@@ -148,8 +174,8 @@
 .category-title {
     margin: 0 0 12px 0;
     padding-bottom: 8px;
-    border-bottom: 2px solid #edae49;
-    color: #003d5b;
+    border-bottom: 2px solid #E8934B;
+    color: #2B5B84;
 }
 
 .kit-items-grid {
@@ -167,24 +193,24 @@
 }
 
 .kit-item-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .kit-item-card.essential {
     background: linear-gradient(135deg, #ffffff 0%, #fef5e8 100%);
-    border-color: #edae49;
+    border-left: 4px solid #E8934B;
 }
 
 .kit-item-card.status-expiring {
-    border-left: 4px solid #edae49;
+    border-left: 4px solid #E8934B;
 }
 
 .kit-item-card.status-expired {
-    border-left: 4px solid #af1b3f;
+    border-left: 4px solid #BF3A45;
 }
 
 .kit-item-card.status-good {
-    border-left: 4px solid #009b72;
+    border-left: 4px solid #5F8B5E;
 }
 
 .kit-item-header {
@@ -198,12 +224,12 @@
 
 .kit-item-header h4 {
     margin: 0;
-    color: #003d5b;
+    color: #2B5B84;
 }
 
 .essential-badge {
-    background: #edae49;
-    color: #003d5b;
+    background: #E8934B;
+    color: white;
     padding: 4px 8px;
     border-radius: 4px;
     font-size: 11px;
@@ -217,16 +243,16 @@
 .kit-item-details p {
     margin: 6px 0;
     font-size: 13px;
-    color: #4a5568;
+    color: #5a6e7a;
 }
 
 .item-notes {
     font-style: italic;
-    color: #718096;
+    color: #888;
     font-size: 12px;
     margin-top: 8px;
     padding-top: 8px;
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid #eee;
 }
 
 .kit-item-actions {
@@ -234,7 +260,7 @@
     gap: 8px;
     margin-top: 12px;
     padding-top: 12px;
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid #eee;
 }
 
 /* Status Badges */
@@ -247,76 +273,48 @@
 }
 
 .status-badge.status-expiring {
-    background: #fef5e8;
-    color: #edae49;
+    background: #fef0e5;
+    color: #E8934B;
 }
 
 .status-badge.status-expired {
-    background: #fce4e4;
-    color: #af1b3f;
+    background: #fde8e9;
+    color: #BF3A45;
 }
 
 .status-badge.status-good {
-    background: #e0f5ef;
-    color: #009b72;
-}
-
-/* Utility Classes */
-.btn-small {
-    background: #003d5b;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-}
-
-.btn-small:hover {
-    background: #002a40;
+    background: #e8f3e8;
+    color: #5F8B5E;
 }
 
 .empty-message {
     text-align: center;
-    color: #718096;
+    color: #5a6e7a;
     padding: 40px;
-    background: #faf8f4;
+    background: #F7F6F2;
     border-radius: 8px;
 }
 
 .kit-loading {
     text-align: center;
     padding: 40px;
-    color: #718096;
-}
-
-.kit-header-buttons {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-}
-
-.btn-pdf {
-    background: #af1b3f;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: background 0.2s;
-}
-
-.btn-pdf:hover {
-    background: #8c1632;
-}
-
-.btn-pdf:active {
-    transform: translateY(1px);
+    color: #2B5B84;
 }
 
 @media (max-width: 768px) {
+    .kit-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .kit-header-buttons {
+        flex-direction: column;
+    }
+    
+    .btn-pdf, .btn-add {
+        width: 100%;
+    }
+    
     .kit-expiring-info {
         flex-direction: column;
         align-items: flex-start;
@@ -333,17 +331,5 @@
     
     .kit-items-grid {
         grid-template-columns: 1fr;
-    }
-     .kit-header {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .kit-header-buttons {
-        flex-direction: column;
-    }
-    
-    .btn-pdf, .btn-add {
-        width: 100%;
     }
 }

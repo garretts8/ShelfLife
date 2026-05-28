@@ -1,20 +1,27 @@
+/* ShelfLife Main Styles - New Color Palette */
+/* Primary: #2B5B84 (Slate Blue) */
+/* Accent/CTA: #E8934B (Warm Orange) */
+/* Success: #5F8B5E (Garden Green) */
+/* Danger/Warning: #BF3A45 (Herbal Red) */
+/* Background: #F7F6F2 (Warm White) */
+
 /* Login Page Styles */
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #2B5B84;
   margin: 0;
   padding: 20px;
 }
 
 .login-card {
-  background: white;
+  background: #F7F6F2;
   border-radius: 16px;
   padding: 48px 40px;
   text-align: center;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   max-width: 400px;
   width: 100%;
 }
@@ -22,11 +29,11 @@
 .login-card h1 {
   font-size: 36px;
   margin-bottom: 12px;
-  color: #333;
+  color: #2B5B84;
 }
 
 .login-card p {
-  color: #666;
+  color: #5a6e7a;
   margin-bottom: 32px;
 }
 
@@ -38,7 +45,7 @@
 /* Dashboard Styles */
 .dashboard-container {
   min-height: 100vh;
-  background: #f5f5f5;
+  background: #F7F6F2;
 }
 
 .dashboard-header {
@@ -47,13 +54,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-bottom: 3px solid #E8934B;
 }
 
 .dashboard-header h1 {
   margin: 0;
   font-size: 24px;
-  color: #667eea;
+  color: #2B5B84;
 }
 
 .user-info {
@@ -64,24 +72,25 @@
 
 .logout-btn {
   padding: 8px 16px;
-  background: #dc3545;
+  background: #BF3A45;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
+  transition: background 0.2s;
 }
 
 .logout-btn:hover {
-  background: #c82333;
+  background: #a0303a;
 }
 
 .dashboard-main {
   padding: 32px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 24px;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -89,12 +98,13 @@
   background: white;
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e0e0e0;
 }
 
 .dashboard-card h2 {
   margin: 0 0 16px 0;
-  color: #333;
+  color: #2B5B84;
   font-size: 20px;
 }
 
@@ -104,7 +114,7 @@
   align-items: center;
   min-height: 100vh;
   font-size: 18px;
-  color: #666;
+  color: #2B5B84;
 }
 
 .error {
@@ -113,5 +123,5 @@
   align-items: center;
   min-height: 100vh;
   font-size: 18px;
-  color: #dc3545;
+  color: #BF3A45;
 }

@@ -1,19 +1,21 @@
+/* Recipe Suggestions Styles - New Color Palette */
+
 .recipe-card {
     background: white;
     border-radius: 12px;
     padding: 24px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
 }
 
 .recipe-card h2 {
     margin: 0 0 8px 0;
-    color: #333;
+    color: #2B5B84;
     font-size: 20px;
 }
 
 .recipe-subtitle {
-    color: #666;
+    color: #5a6e7a;
     font-size: 14px;
     margin-bottom: 20px;
 }
@@ -29,28 +31,41 @@
     border-radius: 8px;
     padding: 16px;
     transition: box-shadow 0.2s;
+    background: white;
 }
 
 .recipe-item:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-.recipe-header {
+.recipe-item.favorite {
+    background: linear-gradient(135deg, #ffffff 0%, #fef5e8 100%);
+    border-left: 4px solid #E8934B;
+}
+
+.recipe-title {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    gap: 10px;
     flex-wrap: wrap;
-    gap: 8px;
 }
 
-.recipe-header h3 {
+.recipe-title h3 {
     margin: 0;
-    color: #667eea;
+    color: #2B5B84;
+}
+
+.favorite-badge {
+    background: #E8934B;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
 }
 
 .match-badge {
-    background: #48bb78;
+    background: #5F8B5E;
     color: white;
     padding: 4px 8px;
     border-radius: 4px;
@@ -58,32 +73,109 @@
     font-weight: 500;
 }
 
-.recipe-description {
-    color: #666;
-    font-size: 14px;
+.recipe-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.recipe-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
     margin: 8px 0;
 }
 
 .recipe-meta {
     display: flex;
-    gap: 16px;
-    margin: 12px 0;
+    gap: 15px;
+    font-size: 12px;
+    color: #5a6e7a;
+}
+
+.recipe-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Rating Stars */
+.rating-stars {
+    display: inline-flex;
+    gap: 4px;
+}
+
+.star {
+    font-size: 18px;
+    cursor: pointer;
+    color: #ccc;
+    transition: color 0.2s;
+}
+
+.star:hover {
+    color: #E8934B;
+}
+
+.star.filled {
+    color: #E8934B;
+}
+
+.favorite-btn {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 0 4px;
+    transition: transform 0.2s;
+}
+
+.favorite-btn:hover {
+    transform: scale(1.1);
+}
+
+.favorite-btn.active {
+    color: #E8934B;
+}
+
+.hide-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #999;
+    padding: 0 4px;
+    transition: all 0.2s;
+}
+
+.hide-btn:hover {
+    color: #BF3A45;
+    transform: scale(1.1);
+}
+
+.recipe-description {
+    color: #5a6e7a;
     font-size: 13px;
-    color: #888;
+    margin: 12px 0;
 }
 
 .view-recipe-btn {
-    background: #667eea;
+    background: #E8934B;
     color: white;
     border: none;
     padding: 8px 16px;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 13px;
+    transition: background 0.2s;
 }
 
 .view-recipe-btn:hover {
-    background: #5a67d8;
+    background: #d07d3a;
 }
 
 .recipe-details {
@@ -94,7 +186,7 @@
 
 .recipe-details h4 {
     margin: 12px 0 8px 0;
-    color: #333;
+    color: #2B5B84;
     font-size: 14px;
 }
 
@@ -105,34 +197,46 @@
 
 .matched-ingredients li, .ingredients-list li {
     margin: 4px 0;
-    font-size: 14px;
-    color: #555;
+    font-size: 13px;
+    color: #5a6e7a;
 }
 
 .matched-ingredients li {
-    color: #48bb78;
+    color: #5F8B5E;
 }
 
 .instructions {
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.5;
-    color: #555;
+    color: #5a6e7a;
     margin: 8px 0 0 0;
 }
 
 .no-suggestions {
     text-align: center;
-    color: #888;
-    padding: 20px;
+    color: #5a6e7a;
+    padding: 40px;
+    background: #F7F6F2;
+    border-radius: 8px;
 }
 
 .recipe-loading {
     text-align: center;
-    padding: 20px;
-    color: #888;
+    padding: 40px;
+    color: #2B5B84;
 }
 
 @media (max-width: 768px) {
+    .recipe-meta-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .recipe-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    
     .recipe-header {
         flex-direction: column;
         align-items: flex-start;
