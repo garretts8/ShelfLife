@@ -1,0 +1,170 @@
+/* Header Styles */
+.shelflife-header {
+    background: white;
+    border-bottom: 1px solid #e9ecef;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.header-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0.9rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+.logo:hover {
+    transform: scale(1.02);
+}
+
+/* SVG Can Icon */
+.logo-icon {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+}
+
+.logo-text {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #2b5e3b, #f4a261);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: -0.3px;
+}
+
+/* Navigation */
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #4a627a;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    padding: 0.5rem 0;
+}
+
+.nav-link:hover {
+    color: #2b5e3b;
+}
+
+/* Active link style (optional) */
+.nav-link.active {
+    color: #2b5e3b;
+    font-weight: 700;
+}
+
+/* Auth Buttons */
+.auth-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-login,
+.btn-signup {
+    padding: 0.5rem 1.2rem;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-login {
+    border: 1px solid #2b5e3b;
+    color: #2b5e3b;
+    background: white;
+}
+
+.btn-login:hover {
+    background: #eef4e8;
+    transform: translateY(-1px);
+}
+
+.btn-signup {
+    background: #2b5e3b;
+    color: white;
+    box-shadow: 0 2px 6px rgba(43, 94, 59, 0.2);
+}
+
+.btn-signup:hover {
+    background: #1f462b;
+    transform: translateY(-1px);
+}
+
+/* User Menu (logged in) */
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.user-avatar {
+    background: #2b5e3b20;
+    border-radius: 40px;
+    padding: 6px 12px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #2b5e3b;
+}
+
+.logout-btn {
+    background: none;
+    border: 1px solid #e2e8f0;
+    padding: 0.4rem 1rem;
+    border-radius: 40px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #5a6e85;
+}
+
+.logout-btn:hover {
+    background: #fef2f2;
+    border-color: #af1b3f;
+    color: #af1b3f;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header-nav {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .logo-text {
+        font-size: 1.4rem;
+    }
+
+    .logo-icon {
+        width: 28px;
+        height: 28px;
+    }
+}

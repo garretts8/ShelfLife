@@ -20,13 +20,21 @@ export const AuthProvider = ({ children }) => {
         if (token) {
             // Fetch user profile using the token to validate
             api.get('/auth/profile')
-                .then(res => setUser(res.data))
-                .catch(() => logout());
+                .then(res => {
+                    setUser(res.data);
+                    setLoading(false);
+                })
+                .catch(err => {
+                    console.error('Profile fetch failed:', err);
+                    logout();
+                    setLoading(false);
+                });
+        } else {
+            setLoading(false);
         }
-        setLoading(false);
     }, []);
 
-    //Login function
+    // Email/Password login function
     const login = async (email, password) => {
         const { data } = await api.post('/auth/login', { email, password });
         localStorage.setItem('token', data.token);
@@ -34,15 +42,20 @@ export const AuthProvider = ({ children }) => {
         return data;
     };
 
-    //Logout function
+    // Google login function - receives user data directly
+    const googleLogin = (userData) => {
+        setUser(userData);
+        // token should already be in localStorage from GoogleLogin component
+    };
+
+    // Logout function
     const logout = () => {
         setUser(null);
         localStorage.removeItem('token');
     };
 
-
     return (
-        <AuthContext.Provider value={{ user, login, logout, loading }}>
+        <AuthContext.Provider value={{ user, login, googleLogin, logout, loading }}>
             {children}
         </AuthContext.Provider>
     );

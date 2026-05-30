@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>ShelfLife — Smart Pantry & Emergency Readiness</title>
+    <!-- Google Font & simple CSS reset -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+      rel="stylesheet" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          'Inter',
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: #fefefe;
+        color: #1a2c3e;
+        line-height: 1.5;
+      }
+
+      /* header & nav */
+      .top-bar {
+        background: white;
+        border-bottom: 1px solid #e9ecef;
+        padding: 0.9rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        backdrop-filter: blur(4px);
+        background: rgba(255, 255, 255, 0.95);
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #2b5e3b, #f4a261);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        letter-spacing: -0.3px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .logo span {
+        font-size: 1.6rem;
+      }
+
+      .auth-area {
+        display: flex;
+        gap: 12px;
+      }
+      .btn {
+        border: none;
+        padding: 0.5rem 1.2rem;
+        border-radius: 40px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: transparent;
+        font-family: inherit;
+      }
+      .btn-outline {
+        border: 1px solid #2b5e3b;
+        color: #2b5e3b;
+        background: white;
+      }
+      .btn-outline:hover {
+        background: #eef4e8;
+      }
+      .btn-primary {
+        background: #2b5e3b;
+        color: white;
+        box-shadow: 0 2px 6px rgba(43, 94, 59, 0.2);
+      }
+      .btn-primary:hover {
+        background: #1f462b;
+        transform: translateY(-1px);
+      }
+
+      /* logged in user area */
+      .user-greeting {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .avatar {
+        background: #2b5e3b20;
+        border-radius: 40px;
+        padding: 6px 12px;
+        font-weight: 500;
+        font-size: 0.9rem;
+        color: #2b5e3b;
+      }
+      .hidden {
+        display: none !important;
+      }
+
+      /* main container */
+      .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 2rem 2rem 4rem;
+      }
+
+      /* hero section (public area) */
+      .hero {
+        text-align: center;
+        padding: 2rem 0 3rem;
+      }
+      .hero h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        background: linear-gradient(to right, #2b5e3b, #e76f51);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom: 1rem;
+      }
+      .hero p {
+        font-size: 1.2rem;
+        color: #4a627a;
+        max-width: 680px;
+        margin: 0 auto;
+      }
+
+      /* recipe grid */
+      .section-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 2rem 0 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        flex-wrap: wrap;
+      }
+      .recipes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.8rem;
+        margin: 1.5rem 0 2rem;
+      }
+      .recipe-card {
+        background: white;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.2s;
+        border: 1px solid #edf2f7;
+      }
+      .recipe-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+      }
+      .recipe-img {
+        height: 160px;
+        background: #e9ecef;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        background: #f8f9fa;
+        border-bottom: 1px solid #e9ecef;
+      }
+      .recipe-info {
+        padding: 1.2rem;
+      }
+      .recipe-title {
+        font-weight: 700;
+        font-size: 1.2rem;
+        margin-bottom: 0.3rem;
+      }
+      .recipe-desc {
+        font-size: 0.85rem;
+        color: #5b6e8c;
+        margin: 0.5rem 0;
+      }
+      .recipe-meta {
+        display: flex;
+        gap: 12px;
+        font-size: 0.75rem;
+        color: #7c8ea0;
+        margin-top: 10px;
+      }
+      .btn-view-more {
+        text-align: center;
+        margin-top: 1rem;
+      }
+      .btn-secondary {
+        background: #eef2f6;
+        color: #1f3b4c;
+        padding: 0.7rem 2rem;
+        border-radius: 60px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+      }
+
+      /* TABs (protected area) */
+      .tabs-container {
+        margin-top: 2rem;
+        border-bottom: 2px solid #e2e8f0;
+      }
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        list-style: none;
+      }
+      .tab-btn {
+        background: transparent;
+        border: none;
+        padding: 0.9rem 1.4rem;
+        font-size: 1rem;
+        font-weight: 600;
+        font-family: inherit;
+        color: #5a6e85;
+        cursor: pointer;
+        transition: 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 40px 40px 0 0;
+      }
+      .tab-btn.active {
+        color: #2b5e3b;
+        background: #eef4e8;
+        border-bottom: 3px solid #2b5e3b;
+      }
+      .tab-content {
+        display: none;
+        padding: 2rem 0.5rem;
+        animation: fade 0.2s ease;
+      }
+      .tab-content.active {
+        display: block;
+      }
+      @keyframes fade {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .login-prompt-card {
+        background: #fef9e6;
+        border-radius: 32px;
+        padding: 2.5rem;
+        text-align: center;
+        border: 1px solid #ffe2b5;
+        margin: 2rem 0;
+      }
+      .login-prompt-card h3 {
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+      }
+      .icon-emergency {
+        font-size: 2rem;
+        vertical-align: middle;
+      }
+
+      footer {
+        text-align: center;
+        padding: 2rem;
+        border-top: 1px solid #e9ecef;
+        margin-top: 3rem;
+        color: #6c7e97;
+      }
+      @media (max-width: 700px) {
+        .container {
+          padding: 1.5rem;
+        }
+        .hero h1 {
+          font-size: 2rem;
+        }
+        .tabs {
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top-bar">
+      <div class="logo"><span>🥫</span> ShelfLife</div>
+      <div id="authWidget" class="auth-area">
+        <!-- will be toggled by JS -->
+        <button class="btn btn-outline" id="loginBtn">Log in</button>
+        <button class="btn btn-primary" id="signupBtn">Sign up</button>
+      </div>
+      <div id="userPanel" class="user-greeting hidden">
+        <span class="avatar" id="userNameSpan">👤 Alex</span>
+        <button
+          class="btn btn-outline"
+          id="logoutBtn"
+          style="padding: 0.3rem 1rem">
+          Logout
+        </button>
+      </div>
+    </div>
+
+    <main class="container">
+      <!-- Hero + public recipe section (visible both states) -->
+      <div class="hero">
+        <h1>🍽️ Never waste food. Always be ready.</h1>
+        <p>
+          Track pantry expiration dates, get smart recipe ideas, and manage your
+          emergency kit — all in one place.
+        </p>
+      </div>
+
+      <!-- RECIPE SECTION (public preview, always visible) -->
+      <div class="section-title">
+        <span>Try these popular recipes</span>
+        <span style="font-size: 0.85rem; font-weight: normal"
+          >inspired by real ingredients</span
+        >
+      </div>
+      <div id="recipeGrid" class="recipes-grid"></div>
+      <div class="btn-view-more">
+        <button class="btn-secondary" id="viewMoreRecipesBtn">
+          📖 View more recipes →
+        </button>
+      </div>
+
+      <!-- ========== PROTECTED TABS SECTION (requires login) ========== -->
+      <div id="protectedZone">
+        <!-- Before login: show wall -->
+        <div id="loginWall" class="login-prompt-card">
+          <span class="icon-emergency">🔐</span>
+          <h3>Unlock your food & emergency hub</h3>
+          <p>
+            Log in to start adding pantry items, track expiration alerts, manage
+            your emergency kit, and get personalized recipe suggestions.
+          </p>
+          <button
+            class="btn btn-primary"
+            id="wallLoginBtn"
+            style="margin-top: 1rem">
+            Log in to ShelfLife →
+          </button>
+        </div>
+
+        <!-- After login: full dashboard with tabs -->
+        <div id="dashboardTabs" class="hidden">
+          <div class="tabs-container">
+            <div class="tabs">
+              <button class="tab-btn active" data-tab="pantry">
+                Pantry Items
+              </button>
+              <button class="tab-btn" data-tab="emergency">
+                Emergency Kit
+              </button>
+              <button class="tab-btn" data-tab="allrecipes">All Recipes</button>
+              <button class="tab-btn" data-tab="suggested">
+                Suggested Recipes
+              </button>
+              <button class="tab-btn" data-tab="notifications">
+                Notifications
+              </button>
+            </div>
+            <div id="tab-pantry" class="tab-content active">
+              <h3>📋 My Pantry</h3>
+              <p style="margin-bottom: 1rem">
+                Track what you have, add expiry dates, and reduce waste.
+              </p>
+              <div
+                style="
+                  background: #f8fafc;
+                  border-radius: 24px;
+                  padding: 1.5rem;
+                  text-align: center;
+                  border: 1px dashed #cbd5e1;
+                ">
+                🥫 + Add your first item (e.g., canned beans, exp:
+                2026-12-31)<br />
+                <small
+                  >✨ Demo: after login you can manage real inventory (coming in
+                  Week 3 CRUD)</small
+                >
+              </div>
+            </div>
+            <div id="tab-emergency" class="tab-content">
+              <h3>Emergency Kit readiness</h3>
+              <p>
+                Water, food bars, batteries, first aid — track expiration &
+                replacement reminders.
+              </p>
+              <div
+                style="
+                  background: #f8fafc;
+                  border-radius: 24px;
+                  padding: 1rem;
+                  margin-top: 1rem;
+                ">
+                ✅ 2 Gallons water (expires 2027-01-01)<br />
+                ✅ 5 Energy bars (expires 2026-11-30)<br />
+                🔔 Replace batteries: due in 2 months
+              </div>
+            </div>
+            <div id="tab-allrecipes" class="tab-content">
+              <h3>🍳 All Recipes (60+ ideas)</h3>
+              <div
+                class="recipes-grid"
+                style="
+                  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                ">
+                <div class="recipe-card">
+                  <div class="recipe-img">🍲</div>
+                  <div class="recipe-info">
+                    <div class="recipe-title">Hearty Lentil Soup</div>
+                  </div>
+                </div>
+                <div class="recipe-card">
+                  <div class="recipe-img">🥑</div>
+                  <div class="recipe-info">
+                    <div class="recipe-title">Avocado Chickpea Salad</div>
+                  </div>
+                </div>
+                <div class="recipe-card">
+                  <div class="recipe-img">🍅</div>
+                  <div class="recipe-info">
+                    <div class="recipe-title">Tomato Basil Pasta</div>
+                  </div>
+                </div>
+                <div class="recipe-card">
+                  <div class="recipe-img">🥘</div>
+                  <div class="recipe-info">
+                    <div class="recipe-title">One-Pot Chili</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="tab-suggested" class="tab-content">
+              <h3>💡 Smart suggestions (based on expiring items)</h3>
+              <div
+                style="
+                  background: #eef2e6;
+                  border-radius: 24px;
+                  padding: 1.5rem;
+                ">
+                ⚠️ <strong>Your tomatoes & onions expire in 3 days</strong> →
+                try <strong>Fresh Salsa</strong> or
+                <strong>Italian Panzanella</strong>
+                <hr style="margin: 1rem 0" />
+                🥫 Canned beans (expiring soon) →
+                <strong>Hearty Bean Soup, Burrito Bowl</strong>
+              </div>
+            </div>
+            <div id="tab-notifications" class="tab-content">
+              <h3>⚙️ Notification center</h3>
+              <p>Email & SMS reminders when food is about to expire.</p>
+              <label style="display: flex; gap: 10px; margin: 1rem 0"
+                ><input type="checkbox" checked /> 🔔 Send expiry alerts 7 days
+                before</label
+              >
+              <label style="display: flex; gap: 10px"
+                ><input type="checkbox" /> ✉️ Weekly digest of low-stock
+                items</label
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        🌱 ShelfLife — reduce food waste • stay prepared • cook smart
+      </footer>
+    </main>
+
+    <script>
+      // ----------------------------- MOCK USER STATE -------------------------
+      let isLoggedIn = false;
+      let currentUser = { name: 'Maria S.', email: 'maria@example.com' };
+
+      // ----- Sample recipes (6 shown on index)
+      const recipeDatabase = [
+        {
+          id: 1,
+          name: 'Mediterranean Chickpea Bowl',
+          desc: 'Protein-packed, perfect for pantry staples',
+          emoji: '🥙',
+          tags: ['quick', 'healthy'],
+        },
+        {
+          id: 2,
+          name: 'Creamy Tomato Lentil Soup',
+          desc: 'Uses canned tomatoes, lentils, onions',
+          emoji: '🍅',
+          tags: ['soup'],
+        },
+        {
+          id: 3,
+          name: '3-Bean Chili',
+          desc: 'Great for emergency kit beans',
+          emoji: '🌶️',
+          tags: ['freezer-friendly'],
+        },
+        {
+          id: 4,
+          name: 'No-Waste Veggie Stir-fry',
+          desc: 'Use any expiring vegetables',
+          emoji: '🥬',
+          tags: ['stirfry'],
+        },
+        {
+          id: 5,
+          name: 'Oatmeal Power Bars',
+          desc: 'Long shelf-life snack',
+          emoji: '🍪',
+          tags: ['emergency'],
+        },
+        {
+          id: 6,
+          name: 'Pantry Pasta Puttanesca',
+          desc: 'Capers, olives, tomatoes',
+          emoji: '🍝',
+          tags: ['italian'],
+        },
+      ];
+
+      function renderRecipes(recipesArray) {
+        const grid = document.getElementById('recipeGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        recipesArray.slice(0, 6).forEach((recipe) => {
+          const card = document.createElement('div');
+          card.className = 'recipe-card';
+          card.innerHTML = `
+        <div class="recipe-img">${recipe.emoji}</div>
+        <div class="recipe-info">
+          <div class="recipe-title">${recipe.name}</div>
+          <div class="recipe-desc">${recipe.desc}</div>
+          <div class="recipe-meta">⭐ 4.7 • 15 min</div>
+        </div>
+      `;
+          grid.appendChild(card);
+        });
+      }
+
+      // "View more recipes" - simple alert simulation (no backend)
+      function handleViewMore() {
+        alert(
+          '📚 More than 30+ recipes available after login! \n(Full recipe database with keyword matching coming in Week 7)',
+        );
+      }
+
+      // ----- update UI depending on auth state
+      function updateAuthUI() {
+        const authWidget = document.getElementById('authWidget');
+        const userPanel = document.getElementById('userPanel');
+        const loginWall = document.getElementById('loginWall');
+        const dashboardTabs = document.getElementById('dashboardTabs');
+        const userNameSpan = document.getElementById('userNameSpan');
+
+        if (isLoggedIn) {
+          authWidget.classList.add('hidden');
+          userPanel.classList.remove('hidden');
+          if (userNameSpan) userNameSpan.innerHTML = `👤 ${currentUser.name}`;
+          // show dashboard, hide wall
+          if (loginWall) loginWall.classList.add('hidden');
+          if (dashboardTabs) dashboardTabs.classList.remove('hidden');
+          // also mark first tab as active (ensure contents)
+          activateTab('pantry');
+        } else {
+          authWidget.classList.remove('hidden');
+          userPanel.classList.add('hidden');
+          if (loginWall) loginWall.classList.remove('hidden');
+          if (dashboardTabs) dashboardTabs.classList.add('hidden');
+          // clear any active tab highlight to default
+        }
+      }
+
+      // tab switching logic (only works after login)
+      function activateTab(tabId) {
+        const tabContents = [
+          'pantry',
+          'emergency',
+          'allrecipes',
+          'suggested',
+          'notifications',
+        ];
+        tabContents.forEach((id) => {
+          const content = document.getElementById(`tab-${id}`);
+          const btn = document.querySelector(`.tab-btn[data-tab="${id}"]`);
+          if (content) {
+            if (id === tabId) {
+              content.classList.add('active');
+              if (btn) btn.classList.add('active');
+            } else {
+              content.classList.remove('active');
+              if (btn) btn.classList.remove('active');
+            }
+          }
+        });
+      }
+
+      // attach tab listeners (dynamic after login)
+      function initTabListeners() {
+        const tabs = document.querySelectorAll('.tab-btn');
+        tabs.forEach((btn) => {
+          btn.removeEventListener('click', handleTabClick);
+          btn.addEventListener('click', handleTabClick);
+        });
+      }
+      function handleTabClick(e) {
+        const tabId = e.currentTarget.getAttribute('data-tab');
+        if (tabId) activateTab(tabId);
+      }
+
+      // fake login / logout (mimics auth flow)
+      function doLogin() {
+        // demo login simulation: sets logged in state
+        isLoggedIn = true;
+        currentUser = { name: 'Alex Rivera', email: 'alex@demo.com' };
+        updateAuthUI();
+        initTabListeners(); // ensures tab handlers work after login
+        // small visual feedback
+        console.log('✅ Logged in as', currentUser.name);
+        // You could re-render extra content: all recipes stay
+        // default first tab active
+        activateTab('pantry');
+      }
+
+      function doLogout() {
+        isLoggedIn = false;
+        updateAuthUI();
+        // reset any active tab styles (optional)
+        const wallLoginBtn = document.getElementById('wallLoginBtn');
+        if (wallLoginBtn) wallLoginBtn.onclick = () => doLogin();
+      }
+
+      // event bindings
+      document.getElementById('loginBtn')?.addEventListener('click', doLogin);
+      document.getElementById('signupBtn')?.addEventListener('click', () => {
+        alert(
+          '✨ Sign up flow: email & password (Google OAuth ready). Demo: just login.',
+        );
+        doLogin();
+      });
+      document.getElementById('logoutBtn')?.addEventListener('click', doLogout);
+      const wallBtn = document.getElementById('wallLoginBtn');
+      if (wallBtn) wallBtn.addEventListener('click', doLogin);
+
+      document
+        .getElementById('viewMoreRecipesBtn')
+        ?.addEventListener('click', handleViewMore);
+
+      // initial page load
+      renderRecipes(recipeDatabase);
+      updateAuthUI();
+      // after UI ready, set tab listeners if dashboard already visible? it's hidden at start but we prepare
+      initTabListeners();
+
+      // small extra: click on any empty state to demo (purely visual for week2 proposal)
+      // ensure if user logs in the tab system works
+    </script>
+  </body>
+</html>

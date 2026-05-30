@@ -1,0 +1,98 @@
+/* Banner Styles */
+.shelflife-banner {
+    position: relative;
+    background: linear-gradient(135deg, #2b5e3b 0%, #1a472a 100%);
+    border-radius: 24px;
+    margin: 1rem 0 2rem;
+    overflow: hidden;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+.banner-content {
+    position: relative;
+    z-index: 2;
+    padding: 3rem 2rem;
+    max-width: 800px;
+}
+
+.banner-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.banner-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.banner-btn {
+    display: inline-block;
+    background: #f4a261;
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.banner-btn:hover {
+    background: #e76f51;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Banner variations */
+.shelflife-banner.small {
+    min-height: 200px;
+}
+
+.shelflife-banner.small .banner-title {
+    font-size: 2rem;
+}
+
+.shelflife-banner.warning {
+    background: linear-gradient(135deg, #e76f51, #af1b3f);
+}
+
+.shelflife-banner.success {
+    background: linear-gradient(135deg, #2b5e3b, #1f462b);
+}
+
+.shelflife-banner.info {
+    background: linear-gradient(135deg, #2b5e3b, #f4a261);
+}
+
+@media (max-width: 768px) {
+    .banner-title {
+        font-size: 2rem;
+    }
+    
+    .banner-subtitle {
+        font-size: 1rem;
+    }
+    
+    .shelflife-banner {
+        min-height: 220px;
+    }
+}

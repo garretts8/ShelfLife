@@ -1,0 +1,115 @@
+/* Footer Styles */
+.shelflife-footer {
+    background: #1a2c3e;
+    color: #e2e8f0;
+    margin-top: 4rem;
+    border-top: 1px solid #2d4a6e;
+}
+
+.footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 3rem 2rem 1.5rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h3 {
+    font-size: 1.4rem;
+    background: linear-gradient(135deg, #f4a261, #2b5e3b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.footer-section h4 {
+    color: #f4a261;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.footer-section p {
+    color: #a0b4c8;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section a {
+    color: #a0b4c8;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+}
+
+.footer-section a:hover {
+    color: #f4a261;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid #2d4a6e;
+}
+
+.footer-bottom p {
+    font-size: 0.8rem;
+    color: #7c8ea0;
+    margin-bottom: 0.25rem;
+}
+
+.copyright {
+    font-size: 0.7rem;
+}
+
+/* Green can icon in footer */
+.footer-bottom p .can-icon {
+    filter: brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(498%) hue-rotate(86deg) brightness(92%) contrast(87%);
+    display: inline-block;
+}
+
+/* Footer Brand with Can Icon */
+.footer-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.footer-can-icon {
+    width: 20px;
+    height: 20px;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+    
+    .footer-container {
+        padding: 2rem 1.5rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}

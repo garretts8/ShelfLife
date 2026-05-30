@@ -1,127 +1,207 @@
-/* ShelfLife Main Styles - New Color Palette */
-/* Primary: #2B5B84 (Slate Blue) */
-/* Accent/CTA: #E8934B (Warm Orange) */
-/* Success: #5F8B5E (Garden Green) */
-/* Danger/Warning: #BF3A45 (Herbal Red) */
-/* Background: #F7F6F2 (Warm White) */
-
-/* Login Page Styles */
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: #2B5B84;
-  margin: 0;
-  padding: 20px;
+/* Main App Styles */
+.app-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-.login-card {
-  background: #F7F6F2;
-  border-radius: 16px;
-  padding: 48px 40px;
-  text-align: center;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  max-width: 400px;
-  width: 100%;
+.app-main {
+    flex: 1;
 }
 
-.login-card h1 {
-  font-size: 36px;
-  margin-bottom: 12px;
-  color: #2B5B84;
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 2rem 0 3rem;
 }
 
-.login-card p {
-  color: #5a6e7a;
-  margin-bottom: 32px;
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(to right, #2b5e3b, #e76f51);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 1rem;
 }
 
-.google-login-wrapper {
-  display: flex;
-  justify-content: center;
+.hero p {
+    font-size: 1.2rem;
+    color: #4a627a;
+    max-width: 680px;
+    margin: 0 auto;
 }
 
-/* Dashboard Styles */
-.dashboard-container {
-  min-height: 100vh;
-  background: #F7F6F2;
+/* Section Title */
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 2rem 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    color: #1a2c3e;
 }
 
-.dashboard-header {
-  background: white;
-  padding: 16px 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  border-bottom: 3px solid #E8934B;
+/* Recipes Grid */
+.recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.8rem;
+    margin: 1.5rem 0 2rem;
 }
 
-.dashboard-header h1 {
-  margin: 0;
-  font-size: 24px;
-  color: #2B5B84;
+.recipe-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s;
+    border: 1px solid #edf2f7;
 }
 
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+.recipe-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
 }
 
-.logout-btn {
-  padding: 8px 16px;
-  background: #BF3A45;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background 0.2s;
+.recipe-img {
+    height: 160px;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    border-bottom: 1px solid #e9ecef;
 }
 
-.logout-btn:hover {
-  background: #a0303a;
+.recipe-info {
+    padding: 1.2rem;
 }
 
-.dashboard-main {
-  padding: 32px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 24px;
-  max-width: 1400px;
-  margin: 0 auto;
+.recipe-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+    color: #1a2c3e;
 }
 
-.dashboard-card {
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e0e0e0;
+.recipe-desc {
+    font-size: 0.85rem;
+    color: #5b6e8c;
+    margin: 0.5rem 0;
 }
 
-.dashboard-card h2 {
-  margin: 0 0 16px 0;
-  color: #2B5B84;
-  font-size: 20px;
+.recipe-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 0.75rem;
+    color: #7c8ea0;
+    margin-top: 10px;
 }
 
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  font-size: 18px;
-  color: #2B5B84;
+/* Login Prompt Card */
+.login-prompt-card {
+    background: #fef9e6;
+    border-radius: 32px;
+    padding: 2.5rem;
+    text-align: center;
+    border: 1px solid #ffe2b5;
+    margin: 2rem 0;
 }
 
-.error {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  font-size: 18px;
-  color: #BF3A45;
+.login-prompt-card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+    color: #1a2c3e;
+}
+
+/* All Recipes Page Styles */
+.all-recipes-page {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.all-recipes-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.all-recipes-header h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, #2b5e3b, #f4a261);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.all-recipes-header p {
+    color: #5a6e7a;
+    font-size: 1.1rem;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem 0;
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, #2b5e3b, #f4a261);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+/* Page Header Styles */
+.page-header p {
+    color: #5a6e7a;
+    font-size: 1.1rem;
+}
+
+/* All Recipes Page */
+.all-recipes-page {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Emergency Kit Page */
+.emergency-kit-page {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem;
+    }
+    .hero h1 {
+        font-size: 2rem;
+    }
+    .hero p {
+        font-size: 1rem;
+    }
+    .section-title {
+        font-size: 1.4rem;
+    }
+    .page-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .page-header p {
+        font-size: 0.9rem;
+    }
+    
+    .all-recipes-page,
+    .emergency-kit-page {
+        padding: 1rem;
+    }
 }

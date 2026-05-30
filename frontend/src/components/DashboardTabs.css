@@ -1,0 +1,74 @@
+/* Dashboard Container */
+.dashboard-container {
+    min-height: 100vh;
+    background: #f8fafc;
+}
+
+/* Dashboard Tabs */
+.dashboard-tabs {
+    display: flex;
+    gap: 0.5rem;
+    background: white;
+    padding: 0.5rem 2rem;
+    border-bottom: 1px solid #e2e8f0;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 70px;
+    z-index: 99;
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #5a6e85;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 40px;
+}
+
+.tab-btn:hover {
+    background: #eef4e8;
+    color: #2b5e3b;
+}
+
+.tab-btn.active {
+    background: #2b5e3b;
+    color: white;
+}
+
+.tab-icon {
+    font-size: 1.2rem;
+}
+
+/* Dashboard Content */
+.dashboard-content {
+    padding: 2rem;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-tabs {
+        justify-content: center;
+        top: 60px;
+    }
+    
+    .tab-label {
+        display: none;
+    }
+    
+    .tab-icon {
+        font-size: 1.5rem;
+    }
+    
+    .dashboard-content {
+        padding: 1rem;
+    }
+}
