@@ -1,4 +1,6 @@
 /* Landing Page Specific Styles */
+
+/* Button Styles */
 .btn-secondary {
     background: #eef2f6;
     color: #1f3b4c;
@@ -19,4 +21,315 @@
 .btn-view-more {
     text-align: center;
     margin-top: 1rem;
+}
+
+/* Hero Section */
+.hero-section {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, #ffffff 0%, #fef5e8 100%);
+    border-radius: 24px;
+    margin-bottom: 2rem;
+}
+
+.hero-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #2b5e3b;
+    margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    color: #4a627a;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Featured Recipes Section */
+.featured-recipes {
+    margin: 2rem 0;
+}
+
+.featured-recipes h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #1a2c3e;
+    margin-bottom: 0.5rem;
+}
+
+.preview-note {
+    text-align: center;
+    color: #af1b3f;
+    font-size: 0.85rem;
+    margin-bottom: 2rem;
+}
+
+/* How It Works Section */
+.how-it-works {
+    background: #f8f9fa;
+    border-radius: 24px;
+    padding: 3rem 2rem;
+    margin: 3rem 0;
+}
+
+.how-it-works h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #1a2c3e;
+    margin-bottom: 2rem;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    text-align: center;
+}
+
+.step {
+    padding: 1rem;
+}
+
+.step-number {
+    width: 48px;
+    height: 48px;
+    background: #2b5e3b;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 auto 1rem auto;
+}
+
+.step h3 {
+    margin-bottom: 0.5rem;
+    color: #1a2c3e;
+}
+
+.step p {
+    color: #5a6e7a;
+    font-size: 0.85rem;
+}
+
+/* CTA Section */
+.cta-section {
+    text-align: center;
+    padding: 2rem;
+    background: #fef5e8;
+    border-radius: 20px;
+    margin: 2rem 0;
+    border: 1px solid #ffe2b5;
+}
+
+.cta-text {
+    font-size: 1.1rem;
+    color: #1a2c3e;
+    margin-bottom: 1rem;
+}
+
+.cta-button {
+    background: #fa9f42;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cta-button:hover {
+    background: #e88a2a;
+    transform: translateY(-2px);
+}
+
+/* Login Prompt Card */
+.login-prompt-card {
+    background: #fef9e6;
+    border-radius: 32px;
+    padding: 2.5rem;
+    text-align: center;
+    border: 1px solid #ffe2b5;
+    margin: 2rem 0;
+}
+
+.login-prompt-card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+    color: #1a2c3e;
+}
+
+/* Google Login Button Wrapper */
+.google-login-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+/* ============================================
+   RESPONSIVE LANDING PAGE
+   ============================================ */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .featured-recipes h2 {
+        font-size: 1.5rem;
+    }
+    
+    .how-it-works h2 {
+        font-size: 1.5rem;
+    }
+    
+    .steps-grid {
+        gap: 1.5rem;
+    }
+    
+    .step h3 {
+        font-size: 1rem;
+    }
+}
+
+/* Mobile (up to 768px) */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 2rem 1rem;
+    }
+    
+    .hero-icon {
+        font-size: 3rem;
+    }
+    
+    .hero-title {
+        font-size: 1.6rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.9rem;
+        padding: 0 1rem;
+    }
+    
+    .featured-recipes h2 {
+        font-size: 1.3rem;
+    }
+    
+    .preview-note {
+        font-size: 0.75rem;
+    }
+    
+    .how-it-works {
+        padding: 2rem 1rem;
+    }
+    
+    .how-it-works h2 {
+        font-size: 1.3rem;
+    }
+    
+    .steps-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .step {
+        padding: 0.5rem;
+    }
+    
+    .step-number {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .step h3 {
+        font-size: 0.95rem;
+    }
+    
+    .step p {
+        font-size: 0.8rem;
+    }
+    
+    .cta-section {
+        padding: 1.5rem;
+    }
+    
+    .cta-text {
+        font-size: 0.9rem;
+    }
+    
+    .cta-button {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .login-prompt-card {
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+    }
+    
+    .login-prompt-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .btn-secondary {
+        padding: 0.5rem 1.5rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* Small Mobile (under 480px) */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.3rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.8rem;
+    }
+    
+    .featured-recipes h2 {
+        font-size: 1.1rem;
+    }
+    
+    .how-it-works h2 {
+        font-size: 1.1rem;
+    }
+    
+    .login-prompt-card h3 {
+        font-size: 1rem;
+    }
+    
+    .login-prompt-card p {
+        font-size: 0.8rem;
+    }
+    
+    .cta-text {
+        font-size: 0.8rem;
+    }
+    
+    .cta-button {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.8rem;
+    }
+    
+    .btn-secondary {
+        padding: 0.4rem 1.2rem;
+        font-size: 0.8rem;
+    }
 }

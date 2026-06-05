@@ -9,6 +9,13 @@
     flex: 1;
 }
 
+/* Container */
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
 /* Hero Section */
 .hero {
     text-align: center;
@@ -117,32 +124,7 @@
     color: #1a2c3e;
 }
 
-/* All Recipes Page Styles */
-.all-recipes-page {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
-.all-recipes-header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.all-recipes-header h1 {
-    font-size: 2.5rem;
-    background: linear-gradient(135deg, #2b5e3b, #f4a261);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    margin-bottom: 0.5rem;
-}
-
-.all-recipes-header p {
-    color: #5a6e7a;
-    font-size: 1.1rem;
-}
-
+/* Page Header Styles */
 .page-header {
     text-align: center;
     margin-bottom: 2rem;
@@ -158,7 +140,6 @@
     margin-bottom: 0.5rem;
 }
 
-/* Page Header Styles */
 .page-header p {
     color: #5a6e7a;
     font-size: 1.1rem;
@@ -178,22 +159,142 @@
     padding: 2rem;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* Button Styles */
+.btn-secondary {
+    background: #eef2f6;
+    color: #1f3b4c;
+    padding: 0.7rem 2rem;
+    border-radius: 60px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    background: #e2e8f0;
+    transform: translateY(-1px);
+}
+
+.btn-view-more {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* Loading State */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 1.2rem;
+    color: #2b5e3b;
+}
+
+.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 1.2rem;
+    color: #af1b3f;
+}
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================ */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
     .container {
         padding: 1.5rem;
     }
+    
     .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    .recipes-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .page-header h1 {
         font-size: 2rem;
     }
+    
+    .all-recipes-page,
+    .emergency-kit-page {
+        padding: 1.5rem;
+    }
+}
+
+/* Mobile (up to 768px) */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .hero {
+        padding: 1rem 0 2rem;
+    }
+    
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
     .hero p {
         font-size: 1rem;
+        padding: 0 1rem;
     }
+    
     .section-title {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.5rem;
     }
+    
+    .recipes-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .recipe-img {
+        height: 140px;
+        font-size: 2.5rem;
+    }
+    
+    .recipe-info {
+        padding: 1rem;
+    }
+    
+    .recipe-title {
+        font-size: 1rem;
+    }
+    
+    .login-prompt-card {
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+    }
+    
+    .login-prompt-card h3 {
+        font-size: 1.3rem;
+    }
+    
+    .page-header {
+        margin-bottom: 1.5rem;
+        padding: 0.5rem 0;
+    }
+    
     .page-header h1 {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
     }
     
     .page-header p {
@@ -203,5 +304,59 @@
     .all-recipes-page,
     .emergency-kit-page {
         padding: 1rem;
+    }
+    
+    .btn-secondary {
+        padding: 0.5rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Small Mobile (under 480px) */
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+    
+    .hero p {
+        font-size: 0.9rem;
+    }
+    
+    .section-title {
+        font-size: 1.1rem;
+    }
+    
+    .recipe-img {
+        height: 120px;
+        font-size: 2rem;
+    }
+    
+    .recipe-title {
+        font-size: 0.9rem;
+    }
+    
+    .recipe-desc {
+        font-size: 0.75rem;
+    }
+    
+    .login-prompt-card {
+        padding: 1rem;
+    }
+    
+    .login-prompt-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .page-header h1 {
+        font-size: 1.3rem;
+    }
+    
+    .page-header p {
+        font-size: 0.8rem;
+    }
+    
+    .btn-secondary {
+        padding: 0.4rem 1.2rem;
+        font-size: 0.8rem;
     }
 }

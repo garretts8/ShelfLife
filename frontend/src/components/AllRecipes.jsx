@@ -10,6 +10,8 @@ const AllRecipes = () => {
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [showAddForm, setShowAddForm] = useState(false);
+    const [userRatings, setUserRatings] = useState({});
+    const [favorites, setFavorites] = useState({});
 
     useEffect(() => {
         loadAllRecipes();
@@ -20,6 +22,17 @@ const AllRecipes = () => {
             setLoading(true);
             const response = await api.get('/recipes');
             setRecipes(response.data);
+            
+            // Load user preferences for each recipe
+            for (const recipe of response.data) {
+                try {
+                    const prefResponse = await api.get(`/recipe-preferences/${recipe._id}/rating`);
+                    setUserRatings(prev => ({ ...prev, [recipe._id]: prefResponse.data.rating }));
+                    setFavorites(prev => ({ ...prev, [recipe._id]: prefResponse.data.isFavorite }));
+                } catch (err) {
+                    // No preferences yet - that's fine
+                }
+            }
         } catch (error) {
             console.error('Failed to load recipes:', error);
         } finally {
@@ -35,6 +48,8 @@ const AllRecipes = () => {
     const handleRating = async (recipeId, rating) => {
         try {
             await api.post(`/recipe-preferences/${recipeId}/rate`, { rating });
+            setUserRatings(prev => ({ ...prev, [recipeId]: rating }));
+            // Reload to update average rating (optional)
             loadAllRecipes();
         } catch (error) {
             console.error('Failed to rate recipe:', error);
@@ -43,8 +58,8 @@ const AllRecipes = () => {
 
     const handleFavorite = async (recipeId) => {
         try {
-            await api.post(`/recipe-preferences/${recipeId}/favorite`);
-            loadAllRecipes();
+            const response = await api.post(`/recipe-preferences/${recipeId}/favorite`);
+            setFavorites(prev => ({ ...prev, [recipeId]: response.data.isFavorite }));
         } catch (error) {
             console.error('Failed to toggle favorite:', error);
         }
@@ -65,6 +80,44 @@ const AllRecipes = () => {
         { value: 'dessert', label: 'Dessert' },
         { value: 'side', label: 'Side Dish' }
     ];
+
+    // Render star rating component
+    const renderStars = (recipeId, recipeRating) => {
+        const currentRating = userRatings[recipeId] || 0;
+        
+        return (
+            <div className="rating-stars">
+                {[1, 2, 3, 4, 5].map(star => (
+                    <span 
+                        key={star} 
+                        className={`star ${star <= currentRating ? 'filled' : ''}`}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handleRating(recipeId, star);
+                        }}
+                        onMouseEnter={(e) => {
+                            // Preview effect on hover
+                            const stars = e.currentTarget.parentElement.children;
+                            for (let i = 0; i < star; i++) {
+                                stars[i].classList.add('hover');
+                            }
+                        }}
+                        onMouseLeave={(e) => {
+                            const stars = e.currentTarget.parentElement.children;
+                            for (let i = 0; i < stars.length; i++) {
+                                stars[i].classList.remove('hover');
+                            }
+                        }}
+                    >
+                        ★
+                    </span>
+                ))}
+                {currentRating > 0 && (
+                    <span className="rating-text">({currentRating}/5)</span>
+                )}
+            </div>
+        );
+    };
 
     if (loading) return <div className="loading-recipes">Loading recipes...</div>;
 
@@ -106,51 +159,47 @@ const AllRecipes = () => {
 
             <div className="recipes-grid">
                 {filteredRecipes.map(recipe => (
-                    <div key={recipe._id} className={`recipe-card ${recipe.isSystemRecipe === false ? 'user-recipe' : ''}`}>
+                    <div key={recipe._id} className={`recipe-card ${favorites[recipe._id] ? 'favorite' : ''} ${recipe.isSystemRecipe === false ? 'user-recipe' : ''}`}>
                         <div className="recipe-card-header">
-                            <h3>
-                                {recipe.name}
+                            <div className="recipe-title-section">
+                                <h3>{recipe.name}</h3>
                                 {recipe.isSystemRecipe === false && <span className="user-recipe-badge">👤 My Recipe</span>}
-                            </h3>
+                                {favorites[recipe._id] && <span className="favorite-badge-small">⭐ Favorite</span>}
+                            </div>
                             <button 
-                                className="favorite-icon"
+                                className={`favorite-icon ${favorites[recipe._id] ? 'active' : ''}`}
                                 onClick={() => handleFavorite(recipe._id)}
+                                title={favorites[recipe._id] ? 'Remove from favorites' : 'Add to favorites'}
                             >
-                                ☆
+                                {favorites[recipe._id] ? '★' : '☆'}
                             </button>
                         </div>
-                        <p className="recipe-description">{recipe.description}</p>
+                        <p className="recipe-description">{recipe.description || 'A delicious recipe for your pantry'}</p>
                         <div className="recipe-meta">
                             <span>⏱️ {recipe.prepTime + recipe.cookTime} min</span>
                             <span>🍽️ {recipe.servings} servings</span>
                         </div>
-                        <div className="rating-stars">
-                            {[1, 2, 3, 4, 5].map(star => (
-                                <span 
-                                    key={star} 
-                                    className="star"
-                                    onClick={() => handleRating(recipe._id, star)}
-                                >
-                                    ★
-                                </span>
-                            ))}
-                        </div>
+                        
+                        {/* Star Rating Component */}
+                        {renderStars(recipe._id, recipe.averageRating)}
+                        
                         <button 
                             className="view-recipe-btn"
                             onClick={() => setSelectedRecipe(selectedRecipe === recipe._id ? null : recipe._id)}
                         >
                             {selectedRecipe === recipe._id ? 'Hide Details' : 'View Recipe'}
                         </button>
+                        
                         {selectedRecipe === recipe._id && (
                             <div className="recipe-full-details">
                                 <h4>Ingredients:</h4>
                                 <ul>
-                                    {recipe.ingredients.map((ing, i) => (
+                                    {recipe.ingredients && recipe.ingredients.map((ing, i) => (
                                         <li key={i}>{ing.quantity} {ing.unit} {ing.name}</li>
                                     ))}
                                 </ul>
                                 <h4>Instructions:</h4>
-                                <p>{recipe.instructions}</p>
+                                <p>{recipe.instructions || 'No instructions provided.'}</p>
                             </div>
                         )}
                     </div>

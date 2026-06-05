@@ -7,7 +7,6 @@ import './LoginPage.css';
 const LoginPage = () => {
     const { user } = useAuth();
 
-    // If already logged in, redirect to dashboard
     if (user) {
         return <Navigate to="/dashboard" />;
     }
@@ -18,12 +17,12 @@ const LoginPage = () => {
                 <Link to="/" className="back-link">← Back to Home</Link>
                 <div className="login-icon">🍽️</div>
                 <h1>Welcome to ShelfLife</h1>
-                <p>Sign in to manage your pantry, track expiration dates, and get recipe suggestions.</p>
+                <p>Sign in with Google to manage your pantry, track expiration dates, and get recipe suggestions.</p>
                 <div className="google-login-wrapper">
                     <GoogleLogin />
                 </div>
                 <p className="login-terms">
-                    By continuing, you agree to our Terms of Service and Privacy Policy.
+                    By signing in, you agree to our Terms of Service and Privacy Policy.
                 </p>
             </div>
         </div>

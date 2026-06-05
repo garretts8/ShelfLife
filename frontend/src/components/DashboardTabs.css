@@ -53,11 +53,54 @@
     margin: 0 auto;
 }
 
-/* Responsive */
+/* ============================================
+   RESPONSIVE DASHBOARD TABS
+   ============================================ */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+    .dashboard-tabs {
+        padding: 0.5rem 1rem;
+        top: 65px;
+    }
+    
+    .tab-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .dashboard-content {
+        padding: 1.5rem;
+    }
+}
+
+/* Mobile (up to 768px) */
 @media (max-width: 768px) {
     .dashboard-tabs {
-        justify-content: center;
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+        padding: 0.5rem;
+        gap: 0.3rem;
         top: 60px;
+    }
+    
+    /* Hide scrollbar for cleaner look (still scrollable) */
+    .dashboard-tabs::-webkit-scrollbar {
+        display: none;
+    }
+    
+    /* For Firefox */
+    .dashboard-tabs {
+        scrollbar-width: none;
+    }
+    
+    .tab-btn {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        flex-shrink: 0;
     }
     
     .tab-label {
@@ -65,10 +108,31 @@
     }
     
     .tab-icon {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
     
     .dashboard-content {
         padding: 1rem;
+    }
+}
+
+/* Small Mobile (under 480px) */
+@media (max-width: 480px) {
+    .dashboard-tabs {
+        top: 55px;
+        padding: 0.4rem;
+        gap: 0.2rem;
+    }
+    
+    .tab-btn {
+        padding: 0.4rem 0.6rem;
+    }
+    
+    .tab-icon {
+        font-size: 1.1rem;
+    }
+    
+    .dashboard-content {
+        padding: 0.75rem;
     }
 }

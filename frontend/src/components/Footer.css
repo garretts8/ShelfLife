@@ -89,6 +89,7 @@
     justify-content: center;
     gap: 8px;
     margin-bottom: 0.5rem;
+    flex-wrap: wrap;
 }
 
 .footer-can-icon {
@@ -96,20 +97,130 @@
     height: 20px;
 }
 
-@media (max-width: 768px) {
+/* ============================================
+   RESPONSIVE FOOTER
+   ============================================ */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+    .footer-container {
+        padding: 2.5rem 1.5rem 1.2rem;
+    }
+    
     .footer-content {
-        grid-template-columns: 1fr 1fr;
         gap: 1.5rem;
+    }
+    
+    .footer-section h3 {
+        font-size: 1.2rem;
+    }
+    
+    .footer-section h4 {
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile (up to 768px) */
+@media (max-width: 768px) {
+    .shelflife-footer {
+        margin-top: 2rem;
     }
     
     .footer-container {
         padding: 2rem 1.5rem 1rem;
     }
+    
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        text-align: center;
+    }
+    
+    .footer-section h3 {
+        font-size: 1.1rem;
+    }
+    
+    .footer-section h4 {
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .footer-section p {
+        font-size: 0.75rem;
+    }
+    
+    .footer-section a {
+        font-size: 0.75rem;
+    }
+    
+    .footer-bottom p {
+        font-size: 0.7rem;
+    }
+    
+    .copyright {
+        font-size: 0.65rem;
+    }
+    
+    .footer-brand {
+        flex-wrap: wrap;
+    }
+    
+    .footer-brand span {
+        font-size: 0.7rem;
+    }
 }
 
+/* Small Mobile (under 480px) */
 @media (max-width: 480px) {
+    .footer-container {
+        padding: 1.5rem 1rem 0.8rem;
+    }
+    
     .footer-content {
         grid-template-columns: 1fr;
+        gap: 1.2rem;
         text-align: center;
+    }
+    
+    .footer-section h3 {
+        font-size: 1rem;
+    }
+    
+    .footer-section h4 {
+        font-size: 0.8rem;
+    }
+    
+    .footer-section p {
+        font-size: 0.7rem;
+    }
+    
+    .footer-section a {
+        font-size: 0.7rem;
+    }
+    
+    .footer-section li {
+        margin-bottom: 0.3rem;
+    }
+    
+    .footer-bottom {
+        padding-top: 1rem;
+    }
+    
+    .footer-bottom p {
+        font-size: 0.65rem;
+    }
+    
+    .copyright {
+        font-size: 0.6rem;
+    }
+    
+    .footer-brand {
+        flex-direction: column;
+        gap: 4px;
+    }
+    
+    .footer-can-icon {
+        width: 18px;
+        height: 18px;
     }
 }

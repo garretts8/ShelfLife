@@ -81,6 +81,32 @@
     gap: 12px;
 }
 
+/* Single Google Sign In Button (Recommended) */
+.btn-google {
+    background: #2b5e3b;
+    color: white;
+    padding: 0.5rem 1.2rem;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-google:hover {
+    background: #1f462b;
+    transform: translateY(-1px);
+}
+
+.btn-google::before {
+    content: "G";
+    font-weight: bold;
+}
+
+/* Legacy Login/Signup Buttons (if still needed) */
 .btn-login,
 .btn-signup {
     padding: 0.5rem 1.2rem;
@@ -147,24 +173,124 @@
     color: #af1b3f;
 }
 
-/* Responsive */
+/* ============================================
+   RESPONSIVE HEADER
+   ============================================ */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+    .header-container {
+        padding: 0.9rem 1.5rem;
+    }
+    
+    .logo-text {
+        font-size: 1.5rem;
+    }
+    
+    .logo-icon {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .nav-link {
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile (up to 768px) */
 @media (max-width: 768px) {
     .header-container {
         flex-direction: column;
         text-align: center;
+        padding: 0.8rem 1rem;
     }
 
     .header-nav {
         width: 100%;
         justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.8rem;
     }
 
     .logo-text {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
     }
 
     .logo-icon {
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
+    }
+    
+    .nav-link {
+        font-size: 0.85rem;
+        padding: 0.3rem 0;
+    }
+    
+    .btn-google,
+    .btn-login,
+    .btn-signup {
+        padding: 0.4rem 1rem;
+        font-size: 0.8rem;
+    }
+    
+    .user-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .user-avatar {
+        font-size: 0.8rem;
+        padding: 4px 10px;
+    }
+    
+    .logout-btn {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Small Mobile (under 480px) */
+@media (max-width: 480px) {
+    .header-container {
+        padding: 0.6rem 0.8rem;
+    }
+    
+    .logo-text {
+        font-size: 1.1rem;
+    }
+    
+    .logo-icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .nav-link {
+        font-size: 0.75rem;
+    }
+    
+    .btn-google,
+    .btn-login,
+    .btn-signup {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.7rem;
+    }
+    
+    .user-avatar {
+        font-size: 0.7rem;
+        padding: 3px 8px;
+    }
+    
+    .logout-btn {
+        padding: 0.25rem 0.6rem;
+        font-size: 0.7rem;
+    }
+    
+    .auth-buttons {
+        gap: 8px;
+    }
+    
+    .user-menu {
+        gap: 8px;
     }
 }
