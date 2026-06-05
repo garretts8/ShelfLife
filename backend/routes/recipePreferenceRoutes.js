@@ -173,6 +173,31 @@ router.get('/favorites', async (req, res) => {
 });
 
 // ============================================
+// GET user's hidden recipes
+// GET /api/recipe-preferences/hidden
+// ============================================
+router.get('/hidden', async (req, res) => {
+    try {
+        const userId = req.user.id;
+
+        const preferences = await RecipePreference.find({ 
+            user: userId, 
+            isHidden: true 
+        }).populate('recipe');
+
+        const hiddenRecipes = preferences
+            .filter(p => p.recipe)
+            .map(p => p.recipe);
+
+        res.json(hiddenRecipes);
+
+    } catch (error) {
+        console.error('Get hidden recipes error:', error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// ============================================
 // GET user's rating for a specific recipe
 // GET /api/recipe-preferences/:recipeId/rating
 // ============================================

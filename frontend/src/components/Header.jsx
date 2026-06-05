@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import GoogleLogin from './GoogleLogin';
 import CanIcon from './CanIcon';
 import './Header.css';
 
@@ -37,7 +38,7 @@ const Header = () => {
                         </>
                     ) : (
                         <div className="auth-buttons">
-                            <Link to="/login" className="btn-google">Sign in with Google</Link>
+                            <GoogleLogin />  {/* Use the actual GoogleLogin component */}
                         </div>
                     )}
                 </nav>

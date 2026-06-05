@@ -32,7 +32,7 @@ const getExpirationAlertTemplate = (userName, itemsListHtml) => `
                     </tbody>
                 </table>
                 
-                <a href="http://localhost:5173/dashboard" class="btn">
+                <a href="${process.env.FRONTEND_URL}/dashboard?tab=pantry" class="btn">
                     View Your Pantry
                 </a>
                 
