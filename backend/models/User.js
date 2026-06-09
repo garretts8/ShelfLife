@@ -13,22 +13,27 @@ const UserSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
-// Hash password before saving to the database. Only hash if password exists and is modified
-UserSchema.pre('save', async function (next) {
+// Hash password before saving - using function() instead of arrow
+UserSchema.pre('save', function(next) {
+    // Only hash if password exists and is modified
     if (!this.password || !this.isModified('password')) {
         return next();
     }
-    try {
-        const salt = await bcrypt.genSalt(10);
-        this.password = await bcrypt.hash(this.password, salt);
-        next();
-    } catch (error) {
-        next(error);
-    }
+    
+    const user = this;
+    bcrypt.genSalt(10, function(err, salt) {
+        if (err) return next(err);
+        
+        bcrypt.hash(user.password, salt, function(err, hash) {
+            if (err) return next(err);
+            user.password = hash;
+            next();
+        });
+    });
 });
 
 //Method to compare password entered password with hashed password
-UserSchema.methods.matchPassword = async function (enteredPassword) {
+UserSchema.methods.matchPassword = async function(enteredPassword) {
     // Google users don't have passwords
     if (!this.password) return false;
     return await bcrypt.compare(enteredPassword, this.password);
