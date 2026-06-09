@@ -13,23 +13,19 @@ const UserSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
-// Hash password before saving - using function() instead of arrow
-UserSchema.pre('save', function(next) {
+// Hash password before saving using async/await style
+UserSchema.pre('save', async function() {
     // Only hash if password exists and is modified
     if (!this.password || !this.isModified('password')) {
-        return next();
+        return;
     }
-    
-    const user = this;
-    bcrypt.genSalt(10, function(err, salt) {
-        if (err) return next(err);
-        
-        bcrypt.hash(user.password, salt, function(err, hash) {
-            if (err) return next(err);
-            user.password = hash;
-            next();
-        });
-    });
+
+    try {
+        const salt = await bcrypt.genSalt(10);
+        this.password = await bcrypt.hash(this.password, salt);
+    } catch (err) {
+        throw err;
+    }
 });
 
 //Method to compare password entered password with hashed password
