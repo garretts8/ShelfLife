@@ -8,7 +8,7 @@ const { checkAndNotifyExpiringItems } = require('../services/cronService');
 
 
 // Test email endpoint - sends a test email to verify setup
-//POST /api/notifications/test-email
+// POST /api/notifications/test-email
 router.post('/test-email', protect, async (req, res) => {
     try {
         const user = req.user;
@@ -17,7 +17,7 @@ router.post('/test-email', protect, async (req, res) => {
         if (success) {
             res.json({ message: 'Test email sent successfully!' })
         } else {
-            res.status(500).json({ message: 'Failed to send test email  ' })
+            res.status(500).json({ message: 'Failed to send test email' })
         }
     } catch (error) {
         console.error('Test email error: ', error);
@@ -25,17 +25,15 @@ router.post('/test-email', protect, async (req, res) => {
     }
 });
 
-//Manual trigger for expiration check for testing
+// Manual trigger for expiration check for testing
+// POST /api/notifications/manual-check
 router.post('/manual-check', protect, async (req, res) => {
     try {
-        //Only allow this in development
-        if (process.env.NODE_ENV !== 'production') {
-            await checkAndNotifyExpiringItems();
-            res.json({ message: 'Manual expiration check triggered' });
-        } else {
-            res.status(403).json({ message: 'Not allowed in production' });
-        }
+        // Allow in both development AND production for testing
+        await checkAndNotifyExpiringItems();
+        res.json({ message: 'Manual expiration check triggered' });
     } catch (error) {
+        console.error('Manual check error:', error);
         res.status(500).json({ message: error.message });
     }
 });
