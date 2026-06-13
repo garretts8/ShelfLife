@@ -68,7 +68,7 @@ const checkAndNotifyExpiringItems = async () => {
             // Send SMS if enabled and phone number exists
             if (preferences && preferences.smsNotifications && preferences.phoneNumber) {
                 console.log(`Sending SMS to ${preferences.phoneNumber} (${items.length} items expiring)`);
-                smsSent = await sendExpirationSMS(preferences.phoneNumber, items);
+                smsSent = await sendSMS(preferences.phoneNumber, `⚠️ ShelfLife Alert: ${items.length} item(s) expiring soon in your pantry. Log in to manage.`);
             }
 
             // If at least one notification method succeeded, mark items as notified

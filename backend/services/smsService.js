@@ -1,69 +1,54 @@
-// Handles sending SMS notifications using Twilio
-const twilio = require('twilio');
+// Handles SMS notifications (with test mode for demonstration)
+const sendSMS = async (toNumber, message) => {
+    const apiKey = process.env.BREVO_API_KEY;
+    const senderName = process.env.BREVO_SMS_SENDER || 'ShelfLife';
+    const testMode = process.env.SMS_TEST_MODE === 'true';
 
-// Create Twilio client
-const createTwilioClient = () => {
-    return twilio(
-        process.env.TWILIO_ACCOUNT_SID,
-        process.env.TWILIO_AUTH_TOKEN
-    );
-};
+    if (testMode) {
+        // Log what WOULD be sent (for demonstration)
+        console.log('📱 [TEST MODE] SMS would be sent:');
+        console.log(`   To: ${toNumber}`);
+        console.log(`   From: ${senderName}`);
+        console.log(`   Message: ${message.substring(0, 100)}...`);
+        return true;  // Simulate success
+    }
 
-// Format expiring items for SMS (character limit is 1600)
-const formatExpiringItemsForSMS = (expiringItems) => {
-    const itemsList = expiringItems.map(item => {
-        const expDate = new Date(item.expirationDate).toLocaleDateString();
-        return `• ${item.name}: ${item.quantity} ${item.unit} (expires ${expDate})`;
-    }).join('\n');
+    // Real SMS sending (requires credits)
+    if (!apiKey) {
+        console.error('Missing BREVO_API_KEY environment variable');
+        return false;
+    }
 
-    return `⚠️ ShelfLife Alert: ${expiringItems.length} item(s) expiring soon:\n\n${itemsList}\n\nLog in to manage your pantry: http://localhost:5173/dashboard`;
-};
+    const payload = {
+        type: 'transactional',
+        sender: senderName,
+        recipient: toNumber,
+        content: message.substring(0, 160)
+    };
 
-// Send expiration notification SMS
-const sendExpirationSMS = async (phoneNumber, expiringItems) => {
     try {
-        const client = createTwilioClient();
-        const messageBody = formatExpiringItemsForSMS(expiringItems);
-
-        // Truncate if too long (SMS limit is 1600 characters)
-        const truncatedBody = messageBody.length > 1600
-            ? messageBody.substring(0, 1597) + '...'
-            : messageBody;
-
-        const message = await client.messages.create({
-            body: truncatedBody,
-            from: process.env.TWILIO_PHONE_NUMBER,
-            to: phoneNumber
+        const response = await fetch('https://api.brevo.com/v3/transactionalSMS/sms', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'api-key': apiKey
+            },
+            body: JSON.stringify(payload)
         });
 
-        console.log(`SMS sent to ${phoneNumber}: ${message.sid}`);
-        return true;
+        const result = await response.json();
 
+        if (!response.ok) {
+            console.error('Brevo SMS API error:', result);
+            return false;
+        }
+
+        console.log(`📱 SMS sent to ${toNumber}: ${result.messageId}`);
+        return true;
     } catch (error) {
-        console.error('Error sending SMS:', error);
+        console.error('SMS sending error:', error);
         return false;
     }
 };
 
-// Send test SMS
-const sendTestSMS = async (phoneNumber) => {
-    try {
-        const client = createTwilioClient();
-
-        const message = await client.messages.create({
-            body: '✅ ShelfLife SMS notifications have been successfully configured! You will now receive alerts when items in your pantry are about to expire.',
-            from: process.env.TWILIO_PHONE_NUMBER,
-            to: phoneNumber
-        });
-
-        console.log(`Test SMS sent to ${phoneNumber}: ${message.sid}`);
-        return true;
-
-    } catch (error) {
-        require('fs').writeFileSync('last_sms_error.txt', error.stack || error.message);
-        console.error('Error sending test SMS:', error);
-        return false;
-    }
-};
-
-module.exports = { sendExpirationSMS, sendTestSMS };
+module.exports = { sendSMS };
