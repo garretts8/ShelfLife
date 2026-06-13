@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const { protect } = require('../middleware/authMiddleware');
-const { sendTestEmail } = require('../services/emailService');
+const { sendTestEmail } = require('./brevoEmailService');
 const { checkAndNotifyExpiringItems } = require('../services/cronService');
 
 
