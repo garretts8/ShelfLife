@@ -3,7 +3,7 @@ const cron = require('node-cron');
 const PantryItem = require('../models/PantryItem');
 const UserPreference = require('../models/UserPreference');
 const { sendExpirationAlert } = require('./brevoEmailService');
-const { sendExpirationSMS } = require('./smsService');
+const { sendSMS } = require('./smsService');
 
 // Function to check expiring items and send emails
 const checkAndNotifyExpiringItems = async () => {
