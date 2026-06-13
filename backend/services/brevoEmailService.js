@@ -1,6 +1,20 @@
 // Handles sending email notifications using Brevo REST API (bypasses Render's SMTP block)
 const { getExpirationAlertTemplate, getTestEmailTemplate } = require('./emailTemplates');
 
+// Helper: Build HTML table rows for expiring items (MUST be defined before use)
+const buildItemsListHtml = (expiringItems) => {
+    return expiringItems.map(item => {
+        const expDate = new Date(item.expirationDate).toLocaleDateString();
+        return `
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.quantity} ${item.unit}</td>
+                <td class="expiry-date">${expDate}</td>
+            </tr>
+        `;
+    }).join('');
+};
+
 // Send email via Brevo API
 const sendEmailViaBrevo = async (toEmail, toName, subject, htmlContent) => {
     const apiKey = process.env.BREVO_API_KEY;
@@ -87,20 +101,6 @@ const sendTestEmail = async (userEmail, userName) => {
         console.error('Error sending test email:', error);
         return false;
     }
-};
-
-// Helper: Build HTML table rows for expiring items
-const buildItemsListHtml = (expiringItems) => {
-    return expiringItems.map(item => {
-        const expDate = new Date(item.expirationDate).toLocaleDateString();
-        return `
-            <tr>
-                <td>${item.name}</td>
-                <td>${item.quantity} ${item.unit}</td>
-                <td class="expiry-date">${expDate}</td>
-            </tr>
-        `;
-    }).join('');
 };
 
 module.exports = {
