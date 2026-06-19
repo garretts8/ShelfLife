@@ -92,6 +92,17 @@ const PantryManager = () => {
             notes: item.notes || ''
         });
         setShowForm(true);
+        
+        // Scroll to the form after it renders
+        setTimeout(() => {
+            const formElement = document.querySelector('.pantry-form');
+            if (formElement) {
+                formElement.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            }
+        }, 100);
     };
 
     //Reset form - clear form and close it.

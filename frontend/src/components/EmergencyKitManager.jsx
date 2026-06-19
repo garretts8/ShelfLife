@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import emergencyKitService from '../services/emergencyKitService';
+import SeventyTwoHourKit from './SeventyTwoHourKit';
 import api from '../api';  
 import './EmergencyKitManager.css';
 
@@ -9,6 +10,7 @@ const EmergencyKitManager = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [showForm, setShowForm] = useState(false);
+    const [showKitModal, setShowKitModal] = useState(false);
     const [editingItem, setEditingItem] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [formData, setFormData] = useState({
@@ -60,36 +62,51 @@ const EmergencyKitManager = () => {
     };
 
     // ============================================
-    // PDF DOWNLOAD FUNCTION - ADD THIS
-    // ============================================
-    const downloadPDF = async () => {
-        try {
-            setLoading(true);
-            const response = await api.get('/emergency-kit/download-pdf', {
-                responseType: 'blob'  // Important for file download
-            });
-            
-            // Create a download link
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', 'emergency-kit-checklist.pdf');
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-            window.URL.revokeObjectURL(url);
-            
-        } catch (error) {
-            console.error('PDF download error:', error);
-            if (error.response?.status === 404) {
-                alert('No items in your emergency kit. Add some items first!');
-            } else {
+// PDF DOWNLOAD FUNCTION - FIXED
+// ============================================
+const downloadPDF = async () => {
+    try {
+        setLoading(true);
+        const response = await api.get('/emergency-kit/download-pdf', {
+            responseType: 'blob'  // Important for file download
+        });
+        
+        // Check if response is OK
+        if (response.status !== 200) {
+            throw new Error('Failed to generate PDF');
+        }
+        
+        // Create a download link
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'emergency-kit-checklist.pdf');
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.URL.revokeObjectURL(url);
+        
+    } catch (error) {
+        console.error('PDF download error:', error);
+        // Check if the error response contains a message
+        if (error.response?.status === 404) {
+            alert('No items in your emergency kit. Add some items first!');
+        } else if (error.response?.data instanceof Blob) {
+            // Try to read the error message from the blob
+            const text = await error.response.data.text();
+            try {
+                const json = JSON.parse(text);
+                alert(json.message || 'Failed to generate PDF. Please try again.');
+            } catch {
                 alert('Failed to generate PDF. Please try again.');
             }
-        } finally {
-            setLoading(false);
+        } else {
+            alert('Failed to generate PDF. Please try again.');
         }
-    };
+    } finally {
+        setLoading(false);
+    }
+};
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -344,7 +361,15 @@ const EmergencyKitManager = () => {
 
             {/* Items List by Category */}
             <div className="kit-items-list">
-                <h3>Your Emergency Kit ({filteredItems.length} items)</h3>
+                <div className="kit-items-header">
+                    <h3>Your Emergency Kit ({filteredItems.length} items)</h3>
+                    <button 
+                        className="btn-72hour"
+                        onClick={() => setShowKitModal(true)}
+                    >
+                        🎒 72 Hour Kit
+                    </button>
+                </div>
                 {filteredItems.length === 0 && !showForm && (
                     <p className="empty-message">
                         No items in your emergency kit. Click "Add Item" to start preparing!
@@ -393,6 +418,11 @@ const EmergencyKitManager = () => {
                     </div>
                 ))}
             </div>
+
+            {/* 72-Hour Kit Modal */}
+            {showKitModal && (
+                <SeventyTwoHourKit onClose={() => setShowKitModal(false)} />
+            )}
         </div>
     );
 };

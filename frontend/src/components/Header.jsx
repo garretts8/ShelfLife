@@ -24,7 +24,7 @@ const Header = () => {
                 <nav className="header-nav">
                     {user ? (
                         <>
-                            <Link to="/dashboard" className="nav-link">Dashboard</Link>
+                            <Link to="/dashboard" className="nav-link">Pantry Items</Link>
                             <Link to="/all-recipes" className="nav-link">Recipes</Link>
                             <Link to="/emergency-kit" className="nav-link">Emergency Kit</Link>
                             <div className="user-menu">

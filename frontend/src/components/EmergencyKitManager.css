@@ -301,6 +301,29 @@
     color: #2B5B84;
 }
 
+.kit-items-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.btn-72hour {
+    background: #003d5b;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.btn-72hour:hover {
+    background: #002a40;
+}
+
 @media (max-width: 768px) {
     .kit-header {
         flex-direction: column;
@@ -331,5 +354,9 @@
     
     .kit-items-grid {
         grid-template-columns: 1fr;
+    }
+    .kit-items-header {
+        flex-direction: column;
+        text-align: center;
     }
 }
