@@ -205,6 +205,22 @@
     .step h3 {
         font-size: 1rem;
     }
+
+    /* Add Clickable Styling to Recipe Cards */
+    .recipe-card.clickable {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+    .recipe-card.clickable:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        border-color: #2b5e3b;
+    }
+
+    .recipe-card.clickable:active {
+        transform: scale(0.98);
+    }
 }
 
 /* Mobile (up to 768px) */

@@ -6,6 +6,7 @@ import EmergencyKitManager from './EmergencyKitManager';
 import AllRecipes from './AllRecipes';
 import SuggestedRecipes from './SuggestedRecipes';
 import NotificationSettings from './NotificationSettings';
+import ConsumedItems from './ConsumedItems';  // ← ADD THIS IMPORT
 import './DashboardTabs.css';
 
 const DashboardTabs = () => {
@@ -16,7 +17,7 @@ const DashboardTabs = () => {
     // Read tab from URL on initial load
     useEffect(() => {
         const tabParam = searchParams.get('tab');
-        if (tabParam && ['pantry', 'emergency', 'allrecipes', 'suggested', 'notifications'].includes(tabParam)) {
+        if (tabParam && ['pantry', 'emergency', 'allrecipes', 'suggested', 'notifications', 'consumed'].includes(tabParam)) {
             setActiveTab(tabParam);
         }
     }, [searchParams]);
@@ -26,6 +27,7 @@ const DashboardTabs = () => {
         { id: 'emergency', label: 'Emergency Kit', icon: '🚨' },
         { id: 'allrecipes', label: 'All Recipes', icon: '🍳' },
         { id: 'suggested', label: 'Suggested Recipes', icon: '💡' },
+        { id: 'consumed', label: 'Consumed Items', icon: '📋' },  // ← ADD THIS TAB
         { id: 'notifications', label: 'Notifications', icon: '⚙️' }
     ];
 
@@ -44,6 +46,8 @@ const DashboardTabs = () => {
                 return <AllRecipes />;
             case 'suggested':
                 return <SuggestedRecipes />;
+            case 'consumed':
+                return <ConsumedItems />;  // ← ADD THIS CASE
             case 'notifications':
                 return <NotificationSettings />;
             default:

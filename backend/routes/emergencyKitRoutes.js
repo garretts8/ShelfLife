@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const EmergencyKitItem = require('../models/EmergencyKitItem');
 const { protect } = require('../middleware/authMiddleware');
+const ConsumedLog = require('../models/ConsumedLog');
 
 // ============================================
 // Helper function to fix timezone offset issue
@@ -227,6 +228,22 @@ router.delete('/:id', async (req, res) => {
 
         if (item.user.toString() !== req.user.id) {
             return res.status(403).json({ message: 'Not authorized' });
+        }
+
+// Log to consumedlog before deleting
+        try {
+            await ConsumedLog.create({
+                user: req.user.id,
+                itemName: item.name,
+                category: item.category,
+                quantity: item.quantity,
+                unit: item.unit || '',
+                expirationDate: item.replacementDate,
+                reason: 'other'
+            });
+            console.log(`Item "${item.name}" logged to consumedlog`);
+        } catch (logError) {
+            console.error('Failed to log consumed item:', logError);
         }
 
         await item.deleteOne();

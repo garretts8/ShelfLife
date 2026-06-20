@@ -4,6 +4,8 @@ const express = require('express');
 const router = express.Router();
 const PantryItem = require('../models/PantryItem');
 const { protect } = require('../middleware/authMiddleware');
+// Import the ConsumedLog model at the top of the file
+const ConsumedLog = require('../models/ConsumedLog');
 
 // ============================================
 // Helper function to fix timezone offset issue
@@ -179,6 +181,25 @@ router.delete('/:id', async (req, res) => {
 
         if (item.user.toString() !== req.user.id) {
             return res.status(403).json({ message: 'User not authorized to delete this item.' })
+        }
+
+        // ============================================
+        // NEW: Log to consumedlog before deleting
+        // ============================================
+        try {
+            await ConsumedLog.create({
+                user: req.user.id,
+                itemName: item.name,
+                category: item.category,
+                quantity: item.quantity,
+                unit: item.unit || '',
+                expirationDate: item.expirationDate,
+                reason: item.expirationDate < new Date() ? 'expired' : 'consumed'
+            });
+            console.log(`Item "${item.name}" logged to consumedlog`);
+        } catch (logError) {
+            // Log the error but don't stop the deletion
+            console.error('Failed to log consumed item:', logError);
         }
 
         await item.deleteOne();

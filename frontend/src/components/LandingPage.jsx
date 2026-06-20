@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import GoogleLogin from './GoogleLogin';
+import LoginPromptModal from './LoginPromptModal';
 import './LandingPage.css';
 
 const LandingPage = () => {
     const { user } = useAuth();
     const navigate = useNavigate();
+    const [selectedRecipe, setSelectedRecipe] = useState(null);
+    const [showLoginPrompt, setShowLoginPrompt] = useState(false);
 
     // If already logged in, redirect to dashboard
     if (user) {
@@ -23,11 +27,18 @@ const LandingPage = () => {
     ];
 
     const handleViewMore = () => {
-        alert('📚 30+ recipes available after login!');
+        setSelectedRecipe(null);
+        setShowLoginPrompt(true);
     };
 
-    const handleGetStarted = () => {
-        navigate('/login');
+    const handleRecipeClick = (recipe) => {
+        setSelectedRecipe(recipe);
+        setShowLoginPrompt(true);
+    };
+
+    const closeModal = () => {
+        setShowLoginPrompt(false);
+        setSelectedRecipe(null);
     };
 
     return (
@@ -44,7 +55,12 @@ const LandingPage = () => {
 
             <div className="recipes-grid">
                 {sampleRecipes.map(recipe => (
-                    <div key={recipe.id} className="recipe-card">
+                    <div 
+                        key={recipe.id} 
+                        className="recipe-card clickable"
+                        onClick={() => handleRecipeClick(recipe)}
+                        style={{ cursor: 'pointer' }}
+                    >
                         <div className="recipe-img">{recipe.emoji}</div>
                         <div className="recipe-info">
                             <div className="recipe-title">{recipe.name}</div>
@@ -68,10 +84,17 @@ const LandingPage = () => {
                 <span style={{ fontSize: '2rem' }}>🔐</span>
                 <h3>Unlock your food & emergency hub</h3>
                 <p>Log in to start adding pantry items, track expiration alerts, manage your emergency kit, and get personalized recipe suggestions.</p>
-                <button className="btn-primary" onClick={handleGetStarted} style={{ marginTop: '1rem', padding: '0.7rem 2rem' }}>
-                    Log in to ShelfLife →
-                </button>
+                <div style={{ marginTop: '1rem' }}>
+                    <GoogleLogin />
+                </div>
             </div>
+
+            {/* Login Prompt Modal */}
+            <LoginPromptModal 
+                isOpen={showLoginPrompt}
+                onClose={closeModal}
+                recipeName={selectedRecipe?.name}
+            />
         </div>
     );
 };
