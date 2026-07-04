@@ -324,6 +324,91 @@
     background: #002a40;
 }
 
+/* Welcome Message Styles - Emergency Kit */
+.empty-state-welcome {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: #f8f9fa;
+    border-radius: 16px;
+    border: 2px dashed #003d5b;
+    margin: 2rem 0;
+}
+
+.welcome-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.empty-state-welcome h3 {
+    color: #1a2c3e;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.empty-state-welcome p {
+    color: #4a627a;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.welcome-steps {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    max-width: 450px;
+    margin: 0 auto 1.5rem auto;
+}
+
+.welcome-steps li {
+    padding: 0.5rem 0;
+    color: #2d3748;
+    font-size: 1rem;
+}
+
+.welcome-steps li strong {
+    color: #003d5b;
+}
+
+.welcome-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+
+.welcome-actions .btn-add {
+    background: #fa9f42;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.welcome-actions .btn-add:hover {
+    background: #e88a2a;
+}
+
+.welcome-actions .btn-72hour {
+    background: #003d5b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.welcome-actions .btn-72hour:hover {
+    background: #002a40;
+}
+
 @media (max-width: 768px) {
     .kit-header {
         flex-direction: column;

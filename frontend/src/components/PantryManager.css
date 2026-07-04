@@ -176,6 +176,70 @@
     border-radius: 8px;
 }
 
+/* ============================================
+   WELCOME MESSAGE - CENTERED WITH SOLID BORDER
+   ============================================ */
+.empty-state-welcome {
+    text-align: center;
+    padding: 2rem 2rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: none !important;
+    box-shadow: none;
+    margin: 2rem auto !important;
+    max-width: 550px;
+    width: 100%;
+    display: block;
+    float: none;
+    clear: both;
+}
+
+.welcome-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.empty-state-welcome h3 {
+    color: #1a2c3e;
+    font-size: 1.4rem;
+    margin-bottom: 0.3rem;
+}
+
+.empty-state-welcome p {
+    color: #4a627a;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.welcome-steps {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    max-width: 400px;
+    margin: 0 auto 1.2rem auto;
+}
+
+.welcome-steps li {
+    padding: 0.3rem 0;
+    color: #2d3748;
+    font-size: 0.9rem;
+}
+
+.welcome-steps li strong {
+    color: #2b5e3b;
+}
+
+/* Also center the parent container */
+.items-list {
+    text-align: center;
+}
+
+.items-list .empty-state-welcome {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
 .items-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -382,6 +446,25 @@
     .empty-message {
         padding: 30px 20px;
         font-size: 0.9rem;
+    }
+
+    /* Mobile welcome message */
+    .empty-state-welcome {
+        padding: 1.5rem 1rem;
+        max-width: 100%;
+        margin: 1rem 0 !important;
+    }
+
+    .welcome-icon {
+        font-size: 2.5rem;
+    }
+
+    .empty-state-welcome h3 {
+        font-size: 1.2rem;
+    }
+
+    .welcome-steps li {
+        font-size: 0.85rem;
     }
 }
 

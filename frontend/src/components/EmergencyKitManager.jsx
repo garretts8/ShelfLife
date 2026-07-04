@@ -62,51 +62,49 @@ const EmergencyKitManager = () => {
     };
 
     // ============================================
-// PDF DOWNLOAD FUNCTION - FIXED
-// ============================================
-const downloadPDF = async () => {
-    try {
-        setLoading(true);
-        const response = await api.get('/emergency-kit/download-pdf', {
-            responseType: 'blob'  // Important for file download
-        });
-        
-        // Check if response is OK
-        if (response.status !== 200) {
-            throw new Error('Failed to generate PDF');
-        }
-        
-        // Create a download link
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', 'emergency-kit-checklist.pdf');
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        window.URL.revokeObjectURL(url);
-        
-    } catch (error) {
-        console.error('PDF download error:', error);
-        // Check if the error response contains a message
-        if (error.response?.status === 404) {
-            alert('No items in your emergency kit. Add some items first!');
-        } else if (error.response?.data instanceof Blob) {
-            // Try to read the error message from the blob
-            const text = await error.response.data.text();
-            try {
-                const json = JSON.parse(text);
-                alert(json.message || 'Failed to generate PDF. Please try again.');
-            } catch {
+    // PDF DOWNLOAD FUNCTION
+    // ============================================
+    const downloadPDF = async () => {
+        try {
+            setLoading(true);
+            const response = await api.get('/emergency-kit/download-pdf', {
+                responseType: 'blob'
+            });
+            
+            // Check if response is OK
+            if (response.status !== 200) {
+                throw new Error('Failed to generate PDF');
+            }
+            
+            // Create a download link
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'emergency-kit-checklist.pdf');
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.URL.revokeObjectURL(url);
+            
+        } catch (error) {
+            console.error('PDF download error:', error);
+            if (error.response?.status === 404) {
+                alert('No items in your emergency kit. Add some items first!');
+            } else if (error.response?.data instanceof Blob) {
+                const text = await error.response.data.text();
+                try {
+                    const json = JSON.parse(text);
+                    alert(json.message || 'Failed to generate PDF. Please try again.');
+                } catch {
+                    alert('Failed to generate PDF. Please try again.');
+                }
+            } else {
                 alert('Failed to generate PDF. Please try again.');
             }
-        } else {
-            alert('Failed to generate PDF. Please try again.');
+        } finally {
+            setLoading(false);
         }
-    } finally {
-        setLoading(false);
-    }
-};
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -149,6 +147,17 @@ const downloadPDF = async () => {
             isEssential: item.isEssential
         });
         setShowForm(true);
+        
+        // Scroll to the form after it renders
+        setTimeout(() => {
+            const formElement = document.querySelector('.kit-form');
+            if (formElement) {
+                formElement.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            }
+        }, 100);
     };
 
     const resetForm = () => {
@@ -370,53 +379,92 @@ const downloadPDF = async () => {
                         🎒 72 Hour Kit
                     </button>
                 </div>
-                {filteredItems.length === 0 && !showForm && (
-                    <p className="empty-message">
-                        No items in your emergency kit. Click "Add Item" to start preparing!
-                    </p>
-                )}
-                
-                {/* Group items by category */}
-                {Object.entries(
-                    filteredItems.reduce((groups, item) => {
-                        const cat = item.category;
-                        if (!groups[cat]) groups[cat] = [];
-                        groups[cat].push(item);
-                        return groups;
-                    }, {})
-                ).map(([category, categoryItems]) => (
-                    <div key={category} className="category-group">
-                        <h4 className="category-title">
-                            {getCategoryIcon(category)} {categories.find(c => c.value === category)?.label || category}
-                        </h4>
-                        <div className="kit-items-grid">
-                            {categoryItems.map(item => {
-                                const status = getReplacementStatus(item.replacementDate);
-                                return (
-                                    <div key={item._id} className={`kit-item-card ${item.isEssential ? 'essential' : ''} ${status?.className || ''}`}>
-                                        <div className="kit-item-header">
-                                            <h4>{item.name}</h4>
-                                            {item.isEssential && <span className="essential-badge">⭐ Essential</span>}
-                                        </div>
-                                        <div className="kit-item-details">
-                                            <p>Quantity: {item.quantity} {item.unit}</p>
-                                            {item.location && <p>📍 Location: {item.location}</p>}
-                                            {item.replacementDate && (
-                                                <p>🔄 Replace by: {new Date(item.replacementDate).toLocaleDateString()}</p>
-                                            )}
-                                            {status && <span className={`status-badge ${status.className}`}>{status.text}</span>}
-                                            {item.notes && <p className="item-notes">📝 {item.notes}</p>}
-                                        </div>
-                                        <div className="kit-item-actions">
-                                            <button onClick={() => handleEdit(item)} className="btn-edit">Edit</button>
-                                            <button onClick={() => handleDelete(item._id)} className="btn-delete">Delete</button>
-                                        </div>
-                                    </div>
-                                );
-                            })}
+                {items.length === 0 && !showForm ? (
+                    <div className="empty-state-welcome">
+                        <div className="welcome-icon">🆘</div>
+                        <h3>Prepare Your Emergency Kit</h3>
+                        <p>Your emergency kit is currently empty. Start building your preparedness supplies!</p>
+                        <ul className="welcome-steps">
+                            <li>🚰 Add <strong>water</strong> - 1 gallon per person per day for 3 days</li>
+                            <li>🍫 Add <strong>food</strong> - non-perishable items like energy bars</li>
+                            <li>🩹 Add <strong>first aid</strong> supplies for injuries</li>
+                            <li>🔦 Add <strong>light</strong> sources like flashlights and batteries</li>
+                            <li>📻 Add <strong>communication</strong> devices like a radio</li>
+                            <li>🧼 Add <strong>hygiene</strong> items like hand sanitizer</li>
+                        </ul>
+                        <div className="welcome-actions">
+                            <button className="btn-add" onClick={() => setShowForm(true)}>
+                                ➕ Add Your First Item
+                            </button>
+                            <button className="btn-72hour" onClick={() => setShowKitModal(true)}>
+                                🎒 View 72 Hour Kit Checklist
+                            </button>
                         </div>
                     </div>
-                ))}
+                ) : (
+                    <>
+                        {/* Category Filter (only shown when items exist) */}
+                        <div className="category-filters">
+                            <button 
+                                className={`filter-btn ${selectedCategory === 'all' ? 'active' : ''}`}
+                                onClick={() => setSelectedCategory('all')}
+                            >
+                                All
+                            </button>
+                            {categories.map(cat => (
+                                <button
+                                    key={cat.value}
+                                    className={`filter-btn ${selectedCategory === cat.value ? 'active' : ''}`}
+                                    onClick={() => setSelectedCategory(cat.value)}
+                                >
+                                    {cat.icon} {cat.label}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Group items by category */}
+                        {Object.entries(
+                            filteredItems.reduce((groups, item) => {
+                                const cat = item.category;
+                                if (!groups[cat]) groups[cat] = [];
+                                groups[cat].push(item);
+                                return groups;
+                            }, {})
+                        ).map(([category, categoryItems]) => (
+                            <div key={category} className="category-group">
+                                <h4 className="category-title">
+                                    {getCategoryIcon(category)} {categories.find(c => c.value === category)?.label || category}
+                                </h4>
+                                <div className="kit-items-grid">
+                                    {categoryItems.map(item => {
+                                        const status = getReplacementStatus(item.replacementDate);
+                                        return (
+                                            <div key={item._id} className={`kit-item-card ${item.isEssential ? 'essential' : ''} ${status?.className || ''}`}>
+                                                <div className="kit-item-header">
+                                                    <h4>{item.name}</h4>
+                                                    {item.isEssential && <span className="essential-badge">⭐ Essential</span>}
+                                                </div>
+                                                <div className="kit-item-details">
+                                                    <p>Quantity: {item.quantity} {item.unit}</p>
+                                                    {item.location && <p>📍 Location: {item.location}</p>}
+                                                    {item.replacementDate && (
+                                                        <p>🔄 Replace by: {new Date(item.replacementDate).toLocaleDateString()}</p>
+                                                    )}
+                                                    {status && <span className={`status-badge ${status.className}`}>{status.text}</span>}
+                                                    {item.notes && <p className="item-notes">📝 {item.notes}</p>}
+                                                </div>
+                                                <div className="kit-item-actions">
+                                                    <button onClick={() => handleEdit(item)} className="btn-edit">Edit</button>
+                                                    <button onClick={() => handleDelete(item._id)} className="btn-delete">Delete</button>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        ))}
+                    </>
+                )}
             </div>
 
             {/* 72-Hour Kit Modal */}

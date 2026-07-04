@@ -253,33 +253,46 @@ const PantryManager = () => {
             {/* All Items List */}
             <div className="items-list">
                 <h3>All Items ({items.length})</h3>
-                {items.length === 0 && !showForm && (
-                    <p className="empty-message">No items in your pantry. Click "Add Item" to get started!</p>
+                {items.length === 0 && !showForm ? (
+                    <div className="empty-state-welcome">
+                        <div className="welcome-icon">👋</div>
+                        <h3>Welcome to Your Pantry!</h3>
+                        <p>Your pantry is currently empty. Let's get it started!</p>
+                        <ul className="welcome-steps">
+                            <li>📦 Click the <strong>"+ Add Item"</strong> button above to add your first food item.</li>
+                            <li>⏰ Enter an expiration date to get smart alerts before food goes bad.</li>
+                            <li>🍳 Once you have items, you'll see recipe suggestions based on what's about to expire.</li>
+                        </ul>
+                        <button className="btn-add" onClick={() => setShowForm(true)}>
+                            ➕ Add Your First Item
+                        </button>
+                    </div>
+                ) : (
+                    <div className="items-grid">
+                        {items.map(item => {
+                            const status = getExpirationStatus(item.expirationDate);
+                            return (
+                                <div key={item._id} className={`item-card ${status.className}`}>
+                                    <div className="item-header">
+                                        <h4>{item.name}</h4>
+                                        <span className={`status-badge ${status.className}`}>{status.text}</span>
+                                    </div>
+                                    <div className="item-details">
+                                        <p>Quantity: {item.quantity} {item.unit}</p>
+                                        <p>Category: {item.category}</p>
+                                        <p>Expires: {new Date(item.expirationDate).toLocaleDateString()}</p>
+                                        {item.notes && <p className="item-notes">📝 {item.notes}</p>}
+                                    </div>
+                                    {/*Edit and Delete buttons*/}
+                                    <div className="item-actions">
+                                        <button onClick={() => handleEdit(item)} className="btn-edit">Edit</button>
+                                        <button onClick={() => handleDelete(item._id)} className="btn-delete">Delete</button>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
                 )}
-                <div className="items-grid">
-                    {items.map(item => {
-                        const status = getExpirationStatus(item.expirationDate);
-                        return (
-                            <div key={item._id} className={`item-card ${status.className}`}>
-                                <div className="item-header">
-                                    <h4>{item.name}</h4>
-                                    <span className={`status-badge ${status.className}`}>{status.text}</span>
-                                </div>
-                                <div className="item-details">
-                                    <p>Quantity: {item.quantity} {item.unit}</p>
-                                    <p>Category: {item.category}</p>
-                                    <p>Expires: {new Date(item.expirationDate).toLocaleDateString()}</p>
-                                    {item.notes && <p className="item-notes">📝 {item.notes}</p>}
-                                </div>
-                                {/*Edit and Delete buttons*/}
-                                <div className="item-actions">
-                                    <button onClick={() => handleEdit(item)} className="btn-edit">Edit</button>
-                                    <button onClick={() => handleDelete(item._id)} className="btn-delete">Delete</button>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
             </div>
         </div>
     );
