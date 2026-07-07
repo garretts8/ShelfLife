@@ -71,12 +71,10 @@ const EmergencyKitManager = () => {
                 responseType: 'blob'
             });
             
-            // Check if response is OK
             if (response.status !== 200) {
                 throw new Error('Failed to generate PDF');
             }
             
-            // Create a download link
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
@@ -148,7 +146,6 @@ const EmergencyKitManager = () => {
         });
         setShowForm(true);
         
-        // Scroll to the form after it renders
         setTimeout(() => {
             const formElement = document.querySelector('.kit-form');
             if (formElement) {
@@ -242,24 +239,7 @@ const EmergencyKitManager = () => {
                 </div>
             )}
 
-            {/* Category Filter */}
-            <div className="category-filters">
-                <button 
-                    className={`filter-btn ${selectedCategory === 'all' ? 'active' : ''}`}
-                    onClick={() => setSelectedCategory('all')}
-                >
-                    All
-                </button>
-                {categories.map(cat => (
-                    <button
-                        key={cat.value}
-                        className={`filter-btn ${selectedCategory === cat.value ? 'active' : ''}`}
-                        onClick={() => setSelectedCategory(cat.value)}
-                    >
-                        {cat.icon} {cat.label}
-                    </button>
-                ))}
-            </div>
+            {/* REMOVED: DUPLICATE CATEGORY FILTER HERE */}
 
             {/* Add/Edit Form */}
             {showForm && (
@@ -379,6 +359,7 @@ const EmergencyKitManager = () => {
                         🎒 72 Hour Kit
                     </button>
                 </div>
+
                 {items.length === 0 && !showForm ? (
                     <div className="empty-state-welcome">
                         <div className="welcome-icon">🆘</div>
@@ -403,7 +384,7 @@ const EmergencyKitManager = () => {
                     </div>
                 ) : (
                     <>
-                        {/* Category Filter (only shown when items exist) */}
+                        {/* Category Filter - ONLY ONE SET */}
                         <div className="category-filters">
                             <button 
                                 className={`filter-btn ${selectedCategory === 'all' ? 'active' : ''}`}
