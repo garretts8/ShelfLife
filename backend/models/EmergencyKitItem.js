@@ -47,6 +47,16 @@ const EmergencyKitItemSchema = new mongoose.Schema({
         default: false,
         comment: 'Mark as essential for quick reference'
     },
+    notifiedForReplacement: {
+        type: Boolean,
+        default: false,
+        comment: 'Whether user has been notified about upcoming replacement date'
+    },
+    lastNotifiedAt: {
+        type: Date,
+        default: null,
+        comment: 'When the user was last notified about this item'
+    },
     createdAt: {
         type: Date,
         default: Date.now

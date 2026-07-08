@@ -1,6 +1,7 @@
 // Scheduled job to check for expiring items and send notifications
 const cron = require('node-cron');
 const PantryItem = require('../models/PantryItem');
+const EmergencyKitItem = require('../models/EmergencyKitItem');
 const UserPreference = require('../models/UserPreference');
 const { sendExpirationAlert } = require('./brevoEmailService');
 const { sendSMS } = require('./smsService');
@@ -18,14 +19,25 @@ const checkAndNotifyExpiringItems = async () => {
         today.setUTCHours(0, 0, 0, 0);
         nextWeek.setUTCHours(23, 59, 59, 999);
 
-        // Find all expiring items that have NOT been notified yet
-        const expiringItems = await PantryItem.find({
+        // Find all expiring PANTRY items that have NOT been notified yet
+        const expiringPantryItems = await PantryItem.find({
             expirationDate: {
                 $gte: today,
                 $lte: nextWeek
             },
             notifiedForExpiration: false  // Only get items not yet notified
         }).populate('user');
+
+        // Find all EMERGENCY KIT items that need replacement soon and haven't been notified
+        const expiringEmergencyItems = await EmergencyKitItem.find({
+            replacementDate: {
+                $gte: today,
+                $lte: nextWeek
+            },
+            notifiedForReplacement: { $ne: true }  // Only get items not yet notified
+        }).populate('user');
+
+        const expiringItems = [...expiringPantryItems, ...expiringEmergencyItems];
 
         if (expiringItems.length === 0) {
             console.log('No new expiring items found.');
@@ -48,7 +60,8 @@ const checkAndNotifyExpiringItems = async () => {
         }
 
         // Send notifications and track which items succeeded
-        const successfullyNotifiedItemIds = [];
+        const successfullyNotifiedPantryIds = [];
+        const successfullyNotifiedEmergencyIds = [];
 
         for (const userId of Object.keys(itemsByUser)) {
             const { user, items } = itemsByUser[userId];
@@ -74,15 +87,20 @@ const checkAndNotifyExpiringItems = async () => {
             // If at least one notification method succeeded, mark items as notified
             if (emailSent || smsSent) {
                 for (const item of items) {
-                    successfullyNotifiedItemIds.push(item._id);
+                    // Check if this is a PantryItem or EmergencyKitItem
+                    if (item.expirationDate) {
+                        successfullyNotifiedPantryIds.push(item._id);
+                    } else if (item.replacementDate) {
+                        successfullyNotifiedEmergencyIds.push(item._id);
+                    }
                 }
             }
         }
 
-        // Mark only successfully notified items as notified
-        if (successfullyNotifiedItemIds.length > 0) {
+        // Mark only successfully notified PANTRY items as notified
+        if (successfullyNotifiedPantryIds.length > 0) {
             await PantryItem.updateMany(
-                { _id: { $in: successfullyNotifiedItemIds } },
+                { _id: { $in: successfullyNotifiedPantryIds } },
                 { 
                     $set: { 
                         notifiedForExpiration: true,
@@ -90,7 +108,21 @@ const checkAndNotifyExpiringItems = async () => {
                     }
                 }
             );
-            console.log(`Marked ${successfullyNotifiedItemIds.length} items as notified`);
+            console.log(`Marked ${successfullyNotifiedPantryIds.length} pantry items as notified`);
+        }
+
+        // Mark only successfully notified EMERGENCY KIT items as notified
+        if (successfullyNotifiedEmergencyIds.length > 0) {
+            await EmergencyKitItem.updateMany(
+                { _id: { $in: successfullyNotifiedEmergencyIds } },
+                { 
+                    $set: { 
+                        notifiedForReplacement: true,
+                        lastNotifiedAt: new Date()
+                    }
+                }
+            );
+            console.log(`Marked ${successfullyNotifiedEmergencyIds.length} emergency kit items as notified`);
         }
 
         console.log('Expiration check completed successfully.');
